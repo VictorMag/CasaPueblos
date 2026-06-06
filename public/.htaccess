@@ -11,10 +11,15 @@
 <IfModule mod_headers.c>
   Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   Header set X-Content-Type-Options "nosniff"
-  Header set X-Frame-Options "SAMEORIGIN"
-  Header set Referrer-Policy "strict-origin-when-cross-origin"
-  Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://api.fontshare.com https://cdn.fontshare.com; font-src https://api.fontshare.com https://cdn.fontshare.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none';"
+  Header set X-Frame-Options "DENY"
+  # no-referrer coincide con el <meta name="referrer"> del BaseLayout; coherente con
+  # la política de privacidad del proyecto (no filtrar destinos a sitios externos).
+  Header set Referrer-Policy "no-referrer"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()"
+  # CSP — permite Google Fonts (fonts.googleapis.com para CSS, fonts.gstatic.com para
+  # los archivos .woff2). 'unsafe-inline' en script-src se necesita para el JSON-LD
+  # inline; en style-src para los estilos `style="..."` de los componentes Astro.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
 </IfModule>
 
 # Compresión gzip para mejor rendimiento
