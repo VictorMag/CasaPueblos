@@ -55,7 +55,7 @@ jobs:
           server:     ${{ secrets.FTP_HOST }}
           username:   ${{ secrets.FTP_USERNAME }}
           password:   ${{ secrets.FTP_PASSWORD }}
-          protocol:   ftp
+          protocol:   ftps
           port:       21
           local-dir:  ./dist/
           # FTP root = /home/u638854670/ — public_html está dentro del home
