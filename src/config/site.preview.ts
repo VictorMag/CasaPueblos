@@ -1,64 +1,50 @@
-// Centro único de configuración. El cliente edita SOLO este archivo.
-// Busca todos los valores entre corchetes [MAYÚSCULAS] y reemplázalos.
+// ⚠️  DATOS DE DEMOSTRACIÓN — solo para la rama `preview`.
+// Este archivo NUNCA se usa en producción.
+// En producción se usa site.ts con datos reales del cliente.
 
 export const site = {
   nombre: "Casa de los Pueblos del Sur",
   descripcion: "Apoyo integral a mujeres, migrantes y familias del sur de la Ciudad de México",
-  url: "https://casadelospueblosdelsur.org", // REEMPLAZAR con el dominio real
+  url: "https://casadelospueblosdelsur.org",
 
-  // ── Contacto administrativo público (aparece en footer y JSON-LD) ──────
-  // NUNCA uses aquí datos de Casa Morada — son confidenciales.
   contactoGeneral: {
-    email:     "[CORREO_GENERAL]",      // ej: contacto@casadelospueblosdelsur.org
-    telefono:  "+52 55 8558 3470",      // teléfono de oficina administrativa pública
-    direccion: "Sanahcat 65A, Héroes de Padierna, Tlalpan, 14200, CDMX",   // dirección administrativa pública (NO de Casa Morada)
+    email:     "contacto@casadelospueblosdelsur.org",
+    telefono:  "+52 55 8558 3470",
+    direccion: "Sanahcat 65A, Héroes de Padierna, Tlalpan, 14200, CDMX",
   },
 
-  // ── Casa Morada — datos de emergencia ───────────────────────────────────
-  // Estos datos aparecen solo en la sección #la-casa-morada y el header.
   casaMorada: {
-    telefonoFijo: "+52 55 5415 0664",                   // ej: +52 951 234 5678
-    whatsapp:     "[NUMERO_WHATSAPP_SIN_+]",            // formato: 529512345678 (sin el signo +)
+    telefonoFijo: "+52 55 5415 0664",
+    whatsapp:     "",               // vacío = botón WhatsApp oculto
   },
 
-  // ── Redes sociales ───────────────────────────────────────────────────────
   redes: {
-    facebook:  "[URL_FACEBOOK]",   // ej: https://facebook.com/casadelospueblosdelsur
-    instagram: "[URL_INSTAGRAM]",  // ej: https://instagram.com/casapueblosdelsur
+    facebook:  "",                  // vacío = ícono oculto
+    instagram: "",
   },
 
-  // ── Clínica comunitaria ──────────────────────────────────────────────────
-  // Cada especialidad: nombre del doctor, horario de consulta y teléfono de citas.
   salud: {
     pediatria: {
-      doctor:  "[DR. NOMBRE APELLIDO]",
-      horario: "[ej: Lunes a viernes, 9:00–14:00]",
-      telefono: "[TEL_PEDIATRIA]",
+      doctor:  "Dr. Nombre Apellido",
+      horario: "Lunes a viernes, 9:00–14:00",
+      telefono: "+52 55 0000 0001",
     },
     neurologia: {
-      doctor:  "[DR. NOMBRE APELLIDO]",
-      horario: "[ej: Martes y jueves, 10:00–16:00]",
-      telefono: "[TEL_NEUROLOGIA]",
+      doctor:  "Dr. Nombre Apellido",
+      horario: "Martes y jueves, 10:00–16:00",
+      telefono: "+52 55 0000 0002",
     },
     alzheimer: {
-      doctor:  "[DR. NOMBRE APELLIDO]",
-      horario: "[ej: Miércoles, 9:00–13:00]",
-      telefono: "[TEL_ALZHEIMER]",
+      doctor:  "Dra. Nombre Apellido",
+      horario: "Miércoles, 9:00–13:00",
+      telefono: "+52 55 0000 0003",
     },
   },
 
-  // ── Misión y visión ──────────────────────────────────────────────────────
-  mision: "[MISIÓN — Acompañar a mujeres, migrantes y familias del sur de la Ciudad de México con servicios gratuitos de protección, asesoría legal, salud y educación, desde un enfoque comunitario y de dignidad humana.]",
+  mision: "Acompañar a mujeres, migrantes y familias del sur de la Ciudad de México con servicios gratuitos de protección, asesoría legal, salud y educación, desde un enfoque comunitario y de dignidad humana.",
 
-  vision: "[VISIÓN — Ser una red comunitaria de referencia en el sur de la Ciudad de México, donde ninguna persona se quede sin apoyo por falta de recursos, información o un lugar seguro al cual acudir.]",
+  vision: "Ser una red comunitaria de referencia en el sur de la Ciudad de México, donde ninguna persona se quede sin apoyo por falta de recursos, información o un lugar seguro al cual acudir.",
 
-  // ── Socios fundadores ────────────────────────────────────────────────────
-  // Lista extraída del Manual de Operaciones original. Algunos nombres están
-  // incompletos en el manual y aparecen igual aquí (revisar con el cliente).
-  // El campo `telefono` se eliminó por ahora — el cliente no tiene los datos.
-  // Cuando se obtengan, agregar el campo y restaurar el toggle "Ver contacto"
-  // en `src/pages/quienes-somos.astro`. Cada teléfono requiere consentimiento
-  // firmado del titular (Ley Federal de Protección de Datos Personales).
   sociosFundadores: [
     { id:  1, nombre: "María Cristina Cruz Ulloa",           titulo: "Abogada" },
     { id:  2, nombre: "Ing. Carlos Carrasco",                titulo: "Ingeniero" },

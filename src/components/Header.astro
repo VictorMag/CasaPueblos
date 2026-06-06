@@ -1,0 +1,415 @@
+---
+// Header — versión Astro vanilla (sin React).
+// Reemplaza al componente React anterior; ahorra ~150KB de JS al no cargar React.
+// Mantiene comportamiento idéntico:
+//   - Sticky con shadow al hacer scroll
+//   - Nav desktop centrado con `aria-current` en la ruta activa
+//   - Pill de teléfono + botón "Necesito ayuda"
+//   - Hamburguesa en <1024px, menú móvil animado con grid-template-rows
+//   - Esc cierra el menú, body scroll-lock cuando está abierto
+
+interface Props {
+  telefonoEmergencia: string;
+}
+
+const { telefonoEmergencia } = Astro.props;
+
+const navLinks = [
+  { href: '/',                 label: 'Inicio' },
+  { href: '/quienes-somos',    label: 'Quiénes somos' },
+  { href: '/#la-casa-morada',  label: 'La Casa Morada' },
+  { href: '/#migrantes',       label: 'Migrantes' },
+  { href: '/#musica',          label: 'Música' },
+  { href: '/#salud',           label: 'Salud' },
+];
+
+// Pathname actual para marcar nav-link--active. En SSG, Astro.url está disponible
+// en build time — perfecto para sitios estáticos.
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<!-- Sentinel para detectar scroll (sticky header + shadow) -->
+<div id="header-sentinel" aria-hidden="true"></div>
+
+<header id="site-header" class="site-header">
+  <div class="header-inner">
+
+    <!-- Logo — siempre visible -->
+    <a href="/" class="header-logo" aria-label="Casa de los Pueblos del Sur — Inicio">
+      <img
+        src="/images/logo.png"
+        alt="Casa de los Pueblos del Sur"
+        class="header-logo-img"
+        width="200"
+        height="200"
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+
+    <!-- Nav desktop — oculta en móvil -->
+    <nav aria-label="Navegación principal" class="desktop-nav">
+      {navLinks.map(link => {
+        const isActive = currentPath === link.href.replace(/\/$/, '');
+        return (
+          <a
+            href={link.href}
+            class={`nav-link${isActive ? ' nav-link--active' : ''}`}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+    </nav>
+
+    <!-- Acciones desktop -->
+    <div class="header-actions desktop-actions">
+      <a
+        href={`tel:${telefonoEmergencia}`}
+        class="emergency-pill"
+        aria-label={`Llamar a la línea de emergencia: ${telefonoEmergencia}`}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span>{telefonoEmergencia}</span>
+      </a>
+      <a href="/#la-casa-morada" class="btn btn-primary btn-sm">
+        Necesito ayuda
+      </a>
+    </div>
+
+    <!-- Hamburguesa -->
+    <button
+      id="hamburger-btn"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Abrir menú"
+      class="hamburger-btn"
+    >
+      <svg id="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="3" x2="21" y1="6" y2="6"/>
+        <line x1="3" x2="21" y1="12" y2="12"/>
+        <line x1="3" x2="21" y1="18" y2="18"/>
+      </svg>
+      <svg id="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+        <path d="M18 6 6 18"/>
+        <path d="m6 6 12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Menú móvil — animado con grid-template-rows -->
+  <div id="mobile-menu-wrapper" class="mobile-menu-wrapper" aria-hidden="true">
+    <nav id="mobile-menu" aria-label="Menú móvil" class="mobile-menu">
+      <div class="mobile-menu-inner">
+        <ul class="mobile-nav-list">
+          {navLinks.map(link => {
+            const isActive = currentPath === link.href.replace(/\/$/, '');
+            return (
+              <li>
+                <a
+                  href={link.href}
+                  class={`mobile-nav-link${isActive ? ' mobile-nav-link--active' : ''}`}
+                  aria-current={isActive ? 'page' : undefined}
+                  tabindex="-1"
+                  data-mobile-link
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div class="mobile-actions">
+          <a
+            href={`tel:${telefonoEmergencia}`}
+            class="emergency-pill emergency-pill--full"
+            aria-label={`Llamar a la línea de emergencia: ${telefonoEmergencia}`}
+            tabindex="-1"
+            data-mobile-link
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>Línea de emergencia: {telefonoEmergencia}</span>
+          </a>
+          <a
+            href="/#la-casa-morada"
+            class="btn btn-primary"
+            style="justify-content: center;"
+            tabindex="-1"
+            data-mobile-link
+          >
+            Necesito ayuda
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* ── Header base ── */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: none;
+    transition: box-shadow 0.2s ease;
+  }
+  .site-header--scrolled {
+    box-shadow: 0 2px 12px oklch(0% 0 0 / 0.08);
+  }
+
+  /* Sentinel invisible para detectar scroll */
+  #header-sentinel {
+    position: absolute;
+    top: 0;
+    height: 1px;
+    width: 100%;
+  }
+
+  /* ── Barra interna ── */
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1rem;
+    width: 100%;
+    max-width: 1600px;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 4vw, 3.5rem);
+  }
+
+  /* ── Logo ── */
+  .header-logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 0;
+    text-decoration: none;
+    border-radius: 0.25rem;
+  }
+  .header-logo-img {
+    height: clamp(48px, 5.5vw, 64px);
+    width: auto;
+    display: block;
+  }
+
+  /* ── Nav desktop ── */
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+    justify-content: center;
+  }
+  .nav-link {
+    position: relative;
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    padding-bottom: 2px;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background-color: var(--color-primary);
+    transition: width 0.25s ease;
+  }
+  .nav-link:hover { color: var(--color-text); }
+  .nav-link:hover::after,
+  .nav-link--active::after { width: 100%; }
+  .nav-link--active { color: var(--color-text); }
+
+  /* ── Acciones desktop ── */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  /* ── Pill de emergencia ── */
+  .emergency-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.375rem 0.875rem;
+    background-color: color-mix(in oklch, var(--color-emergency) 10%, var(--color-bg));
+    color: var(--color-emergency);
+    border: 1px solid color-mix(in oklch, var(--color-emergency) 30%, transparent);
+    border-radius: 999px;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .emergency-pill--full {
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem;
+    font-size: var(--fs-body);
+  }
+
+  /* ── Botón pequeño para desktop ── */
+  .btn-sm {
+    padding: 0.5rem 1.125rem !important;
+    font-size: var(--fs-small) !important;
+  }
+
+  /* ── Hamburguesa ── */
+  .hamburger-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--color-text);
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+  }
+  .hamburger-btn:hover {
+    background-color: var(--color-surface-alt);
+  }
+
+  /* ── Menú móvil ── */
+  .mobile-menu-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .mobile-menu-wrapper--open {
+    grid-template-rows: 1fr;
+  }
+  .mobile-menu {
+    overflow: hidden;
+  }
+  .mobile-menu-inner {
+    padding: 1rem;
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.22s ease 0.08s, transform 0.22s ease 0.08s;
+  }
+  .mobile-menu-wrapper--open .mobile-menu-inner {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile-nav-link {
+    display: block;
+    padding: 0.875rem 0.25rem;
+    font-size: var(--fs-body);
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .mobile-nav-link--active {
+    color: var(--color-primary);
+  }
+  .mobile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1199px) and (min-width: 1024px) {
+    .emergency-pill { display: none; }
+  }
+
+  @media (max-width: 1023px) {
+    .desktop-nav   { display: none !important; }
+    .desktop-actions { display: none !important; }
+    .hamburger-btn { display: flex !important; }
+    .header-inner  { gap: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link::after { transition: none; }
+    .mobile-menu-wrapper { transition: none; }
+    .mobile-menu-inner  { transition: none; opacity: 1; transform: none; }
+  }
+</style>
+
+<script>
+  // Header — interactividad vanilla. Reemplaza a la lógica React previa.
+
+  // 1) Scrolled shadow — IntersectionObserver sobre un sentinel arriba del header
+  const sentinel = document.getElementById('header-sentinel');
+  const header = document.getElementById('site-header');
+  if (sentinel && header) {
+    const observer = new IntersectionObserver(
+      ([entry]) => header.classList.toggle('site-header--scrolled', !entry.isIntersecting),
+      { threshold: 1 }
+    );
+    observer.observe(sentinel);
+  }
+
+  // 2) Mobile menu toggle
+  const btn = document.getElementById('hamburger-btn');
+  const wrapper = document.getElementById('mobile-menu-wrapper');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
+  const mobileLinks = document.querySelectorAll<HTMLElement>('[data-mobile-link]');
+
+  let menuOpen = false;
+  const setMenu = (open: boolean) => {
+    menuOpen = open;
+    if (!btn || !wrapper || !iconMenu || !iconClose) return;
+
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    wrapper.classList.toggle('mobile-menu-wrapper--open', open);
+    wrapper.setAttribute('aria-hidden', String(!open));
+
+    iconMenu.toggleAttribute('hidden', open);
+    iconClose.toggleAttribute('hidden', !open);
+
+    // Bloquea scroll del body cuando el menú está abierto
+    document.body.style.overflow = open ? 'hidden' : '';
+
+    // Solo permite tab a los links del menú cuando está abierto
+    mobileLinks.forEach(link => {
+      link.setAttribute('tabindex', open ? '0' : '-1');
+    });
+  };
+
+  btn?.addEventListener('click', () => setMenu(!menuOpen));
+
+  // 3) Esc cierra el menú
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuOpen) setMenu(false);
+  });
+
+  // 4) Click en un link del menú lo cierra (en mobile)
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => setMenu(false));
+  });
+</script>

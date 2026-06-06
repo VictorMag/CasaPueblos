@@ -1,0 +1,92 @@
+---
+// ExitButton — versión Astro vanilla (sin React).
+// Reemplaza al componente React anterior; ahorra ~130KB de JS al no cargar runtime.
+// Mantiene comportamiento idéntico:
+//   - Click o tecla Esc disparan salida
+//   - Abre un tab señuelo a weather.com y reemplaza la URL actual con google.com
+//   - Botón en min-width/height 48px (target accesible)
+//   - Animación pulse-ring respeta prefers-reduced-motion
+---
+
+<button
+  type="button"
+  id="exit-btn"
+  aria-label="Salir rápidamente y abrir Google"
+  title="Salir rápidamente y abrir Google (también puedes presionar Esc)"
+  class="exit-btn"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M15 3h6v6"/>
+    <path d="M10 14 21 3"/>
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+  </svg>
+  <span class="exit-label">Salir del sitio</span>
+</button>
+
+<style>
+  .exit-btn {
+    position: fixed;
+    z-index: 9999;
+    bottom: 1rem;
+    left: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background-color: var(--color-emergency);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    min-width: 48px;
+    min-height: 48px;
+    animation: pulse-ring 2.8s ease-in-out infinite;
+  }
+  .exit-btn:hover {
+    filter: brightness(0.9);
+    animation: none;
+    box-shadow: 0 6px 20px oklch(0% 0 0 / 0.3);
+  }
+  @media (max-width: 767px) {
+    .exit-btn {
+      bottom: 1rem;
+      left: auto;
+      right: 1rem;
+    }
+    .exit-label { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .exit-btn { animation: none; box-shadow: 0 4px 16px oklch(0% 0 0 / 0.25); }
+  }
+</style>
+
+<script>
+  // ExitButton — comportamiento sin frameworks
+  const exitSite = () => {
+    // Abre un tab señuelo (decoy) para que en caso de que alguien revise el hombro
+    // vea weather.com como sitio reciente, no la URL real.
+    window.open('https://weather.com', '_blank', 'noopener,noreferrer');
+    // Reemplaza la URL actual sin agregar entrada al historial.
+    window.location.replace('https://www.google.com');
+  };
+
+  document.getElementById('exit-btn')?.addEventListener('click', exitSite);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') exitSite();
+  });
+</script>

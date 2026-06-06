@@ -1,0 +1,69 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - main        # producción → public_html/
+      - preview     # staging    → public_html/preview/
+
+  # Permite disparar el deploy manualmente desde la pestaña Actions de GitHub
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy (${{ github.ref_name }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # 1. Checkout del código
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Node 20 (requerido por Astro 5)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Instalar dependencias (usa package-lock.json exacto)
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Si es la rama preview, sustituye site.ts con datos demo
+      #    para que el cliente vea contenido real en lugar de placeholders.
+      #    main siempre usa el site.ts original con datos reales.
+      - name: Use preview data (branch preview only)
+        if: github.ref_name == 'preview'
+        run: cp src/config/site.preview.ts src/config/site.ts
+
+      # 5. Build de producción
+      - name: Build
+        run: npm run build
+
+      # 5. Deploy — la carpeta destino cambia según la rama
+      #    main    → public_html/         (raíz del dominio)
+      #    preview → public_html/preview/ (staging para el cliente)
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:     ${{ secrets.FTP_HOST }}
+          username:   ${{ secrets.FTP_USERNAME }}
+          password:   ${{ secrets.FTP_PASSWORD }}
+          protocol:   ftps          # FTPS (FTP sobre TLS) — Hostinger lo soporta
+          port:       21
+          local-dir:  ./dist/
+          server-dir: ${{ github.ref_name == 'main' && '/public_html/' || '/public_html/preview/' }}
+          # Borra archivos en el servidor que ya no existen en dist/
+          # Evita acumulación de assets viejos entre deploys
+          dangerous-clean-slate: false
+          # Excluye archivos que el servidor gestiona por su cuenta
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
