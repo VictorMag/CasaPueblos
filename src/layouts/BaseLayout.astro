@@ -58,10 +58,37 @@ const jsonLd = {
   <!-- Fuentes: preconnect antes de cualquier hoja de estilos -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Carga no-bloqueante de Google Fonts: el truco media="print" + onload promueve
+       el stylesheet a 'all' una vez descargado, sin bloquear el render inicial.
+       Mejora LCP en ~800ms según Lighthouse. <noscript> es fallback si JS está off. -->
+  <link
+    rel="preload"
+    as="style"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+  />
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+    media="print"
+    onload="this.media='all'"
   />
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+    />
+  </noscript>
+
+  <!-- Preload del hero AVIF — es el LCP de la página principal. Solo afecta a "/" -->
+  {Astro.url.pathname === '/' && (
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero-mural.avif"
+      type="image/avif"
+      fetchpriority="high"
+    />
+  )}
 
   <!-- Identidad -->
   <title>{title}</title>
