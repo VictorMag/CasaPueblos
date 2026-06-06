@@ -55,15 +55,12 @@ jobs:
           server:     ${{ secrets.FTP_HOST }}
           username:   ${{ secrets.FTP_USERNAME }}
           password:   ${{ secrets.FTP_PASSWORD }}
-          protocol:   ftps          # FTPS (FTP sobre TLS) — Hostinger lo soporta
+          protocol:   ftp
           port:       21
           local-dir:  ./dist/
-          # Hostinger aterriza el FTP ya dentro de public_html — no hay que repetirlo
-          server-dir: ${{ github.ref_name == 'main' && '/' || '/preview/' }}
-          # Borra archivos en el servidor que ya no existen en dist/
-          # Evita acumulación de assets viejos entre deploys
+          # Ruta relativa al home del usuario FTP en Hostinger (sin / al inicio)
+          server-dir: ${{ github.ref_name == 'main' && 'public_html/' || 'public_html/preview/' }}
           dangerous-clean-slate: false
-          # Excluye archivos que el servidor gestiona por su cuenta
           exclude: |
             **/.git*
             **/.git*/**
