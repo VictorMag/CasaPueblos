@@ -8,21 +8,25 @@
   class="hero"
 >
   <!--
-    Imagen de portada: /public/images/hero-mural.png
-    Cuando se generen versiones AVIF/WebP, agregar <source> arriba del <img>.
-    Para optimización: convertir a WebP/AVIF reduce 50-70% el peso.
+    Imagen de portada: hero-mural en AVIF/WebP/PNG (cascada por compatibilidad).
+    AVIF ~276KB, WebP ~293KB, PNG fallback ~660KB. Original era 2.6MB.
+    Dimensiones: 1672×941 (suficiente para hero de pantalla completa hasta ~1920px).
   -->
-  <img
-    class="hero-bg-img"
-    src="/images/hero-mural.png"
-    alt=""
-    width="1920"
-    height="1080"
-    loading="eager"
-    fetchpriority="high"
-    decoding="async"
-    aria-hidden="true"
-  />
+  <picture class="hero-bg-picture">
+    <source srcset="/images/hero-mural.avif" type="image/avif" />
+    <source srcset="/images/hero-mural.webp" type="image/webp" />
+    <img
+      class="hero-bg-img"
+      src="/images/hero-mural.png"
+      alt=""
+      width="1672"
+      height="941"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      aria-hidden="true"
+    />
+  </picture>
 
   <!-- Capas de oscurecimiento sobre la imagen -->
   <div class="hero-gradient" aria-hidden="true"></div>
@@ -72,6 +76,13 @@
   }
 
   /* Imagen de fondo (mural) — 140% de alto para que el parallax tenga margen */
+  .hero-bg-picture {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+  }
   .hero-bg-img {
     position: absolute;
     top: -20%;
@@ -81,7 +92,6 @@
     height: 140%;
     object-fit: cover;
     object-position: center;
-    z-index: 0;
     pointer-events: none;
     will-change: transform;
   }
