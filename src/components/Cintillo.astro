@@ -1,0 +1,39 @@
+---
+// Cintillo superior: apoyo institucional. Discreto, no prominente.
+---
+
+<div
+  role="banner"
+  aria-label="Información institucional"
+  style="
+    background-color: var(--color-surface-alt);
+    border-bottom: 1px solid var(--color-border);
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  "
+>
+  <!-- REEMPLAZAR: /public/images/morena.svg — logo oficial del partido MORENA.
+       Descarga la versión actual desde morena.si o el sitio oficial del partido.
+       Dimensiones sugeridas: 60×20px, SVG o PNG con fondo transparente. -->
+  <img
+    src="/images/morena.svg"
+    alt="Logo del partido MORENA"
+    width="60"
+    height="20"
+    loading="eager"
+    style="height: 18px; width: auto;"
+    onerror="this.style.display='none'"
+  />
+  <span
+    style="
+      font-size: var(--fs-small);
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    "
+  >
+    Programa apoyado por MORENA — modelo de prueba
+  </span>
+</div>

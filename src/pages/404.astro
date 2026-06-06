@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página no encontrada — Casa de los Pueblos del Sur">
+  <main
+    id="main-content"
+    style="
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-block: var(--section-pad-y);
+      background-color: var(--color-bg);
+    "
+  >
+    <div
+      class="container"
+      style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;"
+    >
+      <h1 style="font-size: var(--fs-display); color: var(--color-primary);">404</h1>
+      <p style="font-size: var(--fs-h3); color: var(--color-text); font-family: 'Playfair Display', Georgia, serif; font-weight: 400; max-width: none;">
+        Esta página no existe
+      </p>
+      <p style="color: var(--color-text-muted); max-width: 45ch; text-align: center;">
+        La página que buscas no se encontró. Si necesitas ayuda urgente, llama directamente a nuestra línea de emergencia.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 0.5rem;">
+        <a href="/" class="btn btn-primary">Ir al inicio</a>
+        <a href="/#la-casa-morada" class="btn btn-emergency">Necesito ayuda ahora</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

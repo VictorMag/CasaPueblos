@@ -1,0 +1,28 @@
+IMÁGENES REQUERIDAS — reemplaza estos archivos antes de publicar el sitio
+=========================================================================
+
+1. hero.jpg / hero.webp / hero.avif
+   - Imagen de portada del sitio.
+   - Dimensiones: 1920 × 1080 px.
+   - Peso máximo: 200 KB (usa squoosh.app para comprimir).
+   - Contenido: comunidad del sur de México, ambiente cálido y digno.
+   - NO usar imágenes de banco genéricas.
+
+2. og.jpg
+   - Imagen para redes sociales (Open Graph / Twitter Card).
+   - Dimensiones exactas: 1200 × 630 px.
+   - Peso máximo: 150 KB.
+   - Puede ser el logo sobre fondo morado con el nombre de la organización.
+
+3. morena.svg
+   - Logo oficial del partido MORENA.
+   - Descarga desde el sitio oficial del partido (morena.si o similar).
+   - Formato SVG preferido, con fondo transparente.
+   - Altura de visualización: 18 px (el ancho escala automáticamente).
+
+4. logo.png (opcional, para JSON-LD)
+   - Logo de la organización.
+   - Dimensiones: 512 × 512 px mínimo.
+   - Fondo transparente.
+
+Todos los archivos deben colocarse en esta carpeta: /public/images/

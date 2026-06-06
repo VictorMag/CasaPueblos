@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+/* ─── Fuentes (Google Fonts — DM Sans + Playfair Display) ─────────────── */
+
+:root {
+  /* ── Superficies ───────────────────────────────────────────────────── */
+  --color-bg:           oklch(98% 0.012 75);
+  --color-surface:      oklch(100% 0 0);
+  --color-surface-alt:  oklch(95% 0.018 75);
+
+  /* ── Texto ─────────────────────────────────────────────────────────── */
+  --color-text:         oklch(22% 0.02 50);
+  --color-text-muted:   oklch(45% 0.02 50);
+
+  /* ── Acento primario: morado profundo (La Casa Morada) ─────────────── */
+  --color-primary:      oklch(35% 0.13 305);
+  --color-primary-deep: oklch(25% 0.10 305);
+  --color-primary-soft: oklch(92% 0.04 305);
+
+  /* ── Acento secundario: dorado cálido (Música) ─────────────────────── */
+  --color-accent:       oklch(70% 0.13 75);
+
+  /* ── Emergencia — contraste AAA (7:1) sobre --color-bg ─────────────── */
+  --color-emergency:    oklch(55% 0.20 25);
+
+  /* ── Bordes ────────────────────────────────────────────────────────── */
+  --color-border:       oklch(88% 0.01 75);
+
+  /* ── Escala tipográfica fluida ──────────────────────────────────────── */
+  --fs-display:  clamp(2.5rem,  5vw + 1rem,   4.5rem);
+  --fs-h2:       clamp(1.75rem, 2.5vw + 1rem, 2.75rem);
+  --fs-h3:       clamp(1.25rem, 1vw + 1rem,   1.5rem);
+  --fs-body:     clamp(1rem,    0.25vw + 0.95rem, 1.125rem);
+  --fs-small:    clamp(0.8125rem, 0.1vw + 0.78rem, 0.875rem);
+
+  /* ── Espaciado ──────────────────────────────────────────────────────── */
+  --section-pad-y: clamp(4rem, 10vw, 8rem);
+  --prose-width: 65ch;
+}
+
+/* ─── Reset y base ────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  min-width: 0; /* evita que hijos de grid/flex se nieguen a comprimir */
+}
+
+/* Rompe palabras largas (URLs, placeholders, teléfonos) antes de desbordar */
+p, h1, h2, h3, h4, li, dt, dd, a, span, address {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: var(--fs-body);
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ─── Enfoque visible universal ────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ─── Tipografía de display y headings ─────────────────────────────────── */
+h1, h2, h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1 { font-size: var(--fs-display); font-weight: 500; }
+h2 { font-size: var(--fs-h2); font-weight: 500; }
+h3 { font-size: var(--fs-h3); font-weight: 500; }
+
+p {
+  margin: 0;
+  max-width: var(--prose-width);
+}
+
+a {
+  color: inherit;
+  text-decoration-skip-ink: auto;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ─── Utilidades de layout ──────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 3rem);
+}
+
+/* ─── Botón base ────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid transparent;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  border-color: var(--color-primary);
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-deep);
+  border-color: var(--color-primary-deep);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-surface);
+  border-color: var(--color-surface);
+}
+.btn-ghost:hover {
+  background-color: color-mix(in oklch, var(--color-surface) 15%, transparent);
+}
+
+.btn-emergency {
+  background-color: var(--color-emergency);
+  color: var(--color-surface);
+  border-color: var(--color-emergency);
+}
+.btn-emergency:hover {
+  filter: brightness(0.9);
+}
+
+.btn-whatsapp {
+  background-color: oklch(55% 0.18 145);
+  color: var(--color-surface);
+  border-color: oklch(55% 0.18 145);
+}
+.btn-whatsapp:hover {
+  filter: brightness(0.9);
+}
+
+/* ─── Tarjeta base ──────────────────────────────────────────────────────── */
+@keyframes card-float {
+  0%, 100% {
+    transform: translateY(0px);
+    box-shadow:
+      0 2px 6px oklch(0% 0 0 / 0.06),
+      0 4px 12px oklch(0% 0 0 / 0.05);
+  }
+  50% {
+    transform: translateY(-10px);
+    box-shadow:
+      0 12px 28px oklch(0% 0 0 / 0.11),
+      0 24px 48px oklch(0% 0 0 / 0.07);
+  }
+}
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  box-shadow:
+    0 1px 2px oklch(0% 0 0 / 0.04),
+    0 2px 6px oklch(0% 0 0 / 0.04);
+  will-change: transform;
+}
+
+.card:hover {
+  animation: card-float 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover { animation: none; }
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────────── */
+html {
+  scrollbar-color: var(--color-primary) var(--color-surface-alt);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface-alt);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+  border: 2px solid var(--color-surface-alt);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-deep);
+}
+
+/* ─── Animaciones globales ──────────────────────────────────────────────── */
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: 0 4px 16px oklch(0% 0 0 / 0.25), 0 0 0 0 oklch(55% 0.20 25 / 0.45); }
+  60%       { box-shadow: 0 4px 16px oklch(0% 0 0 / 0.25), 0 0 0 10px oklch(55% 0.20 25 / 0); }
+}

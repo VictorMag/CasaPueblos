@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+import Header from '../components/Header';
+import ExitButton from '../components/ExitButton';
+import Hero from '../components/Hero.astro';
+import CasaMorada from '../components/CasaMorada.astro';
+import Migrantes from '../components/Migrantes.astro';
+import Musica from '../components/Musica.astro';
+import Salud from '../components/Salud.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <Header client:load telefonoEmergencia={site.casaMorada.telefonoFijo} />
+
+  <main id="main-content">
+    <Hero />
+    <CasaMorada />
+    <Migrantes />
+    <Musica />
+    <Salud />
+  </main>
+
+  <Footer />
+
+  <!-- Isla React: botón de salida siempre presente en toda la página -->
+  <ExitButton client:load />
+</BaseLayout>

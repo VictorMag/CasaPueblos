@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+import Header from '../components/Header';
+import ExitButton from '../components/ExitButton';
+import Footer from '../components/Footer.astro';
+
+const title       = "Aviso de privacidad — Casa de los Pueblos del Sur";
+const description = "Aviso de privacidad de Casa de los Pueblos del Sur conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).";
+---
+
+<BaseLayout title={title} description={description}>
+  <Header client:load telefonoEmergencia={site.casaMorada.telefonoFijo} />
+
+  <main id="main-content">
+
+    <!-- ── Hero corto ─────────────────────────────────────────────────────── -->
+    <section
+      aria-labelledby="aviso-heading"
+      style="
+        background-color: var(--color-surface-alt);
+        padding-block: clamp(4rem, 10vw, 7rem);
+        min-height: 40vh;
+        display: flex;
+        align-items: center;
+      "
+    >
+      <div class="container">
+        <div data-reveal style="display: flex; flex-direction: column; gap: 1.25rem; max-width: 640px;">
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <span
+              style="
+                font-size: var(--fs-small);
+                font-weight: 600;
+                color: var(--color-primary);
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+              "
+            >
+              Legal
+            </span>
+            <span
+              aria-hidden="true"
+              style="width: 2.5rem; height: 2px; background-color: var(--color-primary);"
+            ></span>
+          </div>
+          <h1 id="aviso-heading">Aviso de privacidad</h1>
+          <p style="color: var(--color-text-muted); line-height: 1.75; max-width: 55ch;">
+            Conforme a la Ley Federal de Protección de Datos Personales en Posesión
+            de los Particulares (LFPDPPP).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contenido ──────────────────────────────────────────────────────── -->
+    <section
+      aria-label="Contenido del aviso de privacidad"
+      style="
+        background-color: var(--color-bg);
+        padding-block: clamp(4rem, 8vw, 6rem);
+      "
+    >
+      <div class="container">
+        <div
+          data-reveal
+          style="
+            max-width: 70ch;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+          "
+        >
+          <div
+            style="
+              background-color: var(--color-primary-soft);
+              border-left: 3px solid var(--color-primary);
+              border-radius: 0 0.25rem 0.25rem 0;
+              padding: 1.25rem 1.5rem;
+            "
+            role="note"
+          >
+            <p
+              style="
+                font-family: 'Playfair Display', Georgia, serif;
+                font-size: var(--fs-h3);
+                font-weight: 500;
+                color: var(--color-primary-deep);
+                max-width: none;
+                margin-bottom: 0.5rem;
+              "
+            >
+              Contenido pendiente
+            </p>
+            <p style="color: var(--color-text-muted); line-height: 1.75; max-width: none;">
+              [CONTENIDO DEL AVISO DE PRIVACIDAD — el cliente debe redactarlo conforme
+              a la Ley Federal de Protección de Datos Personales en Posesión de los
+              Particulares (LFPDPPP). Debe incluir:]
+            </p>
+            <ul
+              style="
+                margin: 1rem 0 0;
+                padding-left: 1.25rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                color: var(--color-text-muted);
+                font-size: var(--fs-small);
+                line-height: 1.6;
+              "
+            >
+              <li>Identidad y domicilio del responsable del tratamiento</li>
+              <li>Datos personales recabados y finalidades del tratamiento</li>
+              <li>Transferencias de datos a terceros, si las hay</li>
+              <li>Mecanismos para ejercer derechos ARCO (Acceso, Rectificación, Cancelación y Oposición)</li>
+              <li>Mecanismo para revocar el consentimiento</li>
+              <li>Uso de cookies o tecnologías de rastreo (si aplica)</li>
+              <li>Cambios al aviso de privacidad</li>
+            </ul>
+          </div>
+
+          <p style="color: var(--color-text-muted); line-height: 1.75; font-size: var(--fs-small); max-width: none;">
+            Para cualquier duda sobre el tratamiento de sus datos personales, puede
+            contactarnos en:
+            <a
+              href={`mailto:${site.contactoGeneral.email}`}
+              style="color: var(--color-primary); font-weight: 500;"
+            >
+              {site.contactoGeneral.email}
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+  <ExitButton client:load />
+</BaseLayout>

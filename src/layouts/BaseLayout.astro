@@ -1,0 +1,169 @@
+---
+import { site } from '../config/site';
+import '../styles/tokens.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title = `${site.nombre} — Apoyo a mujeres, migrantes y familias en el sur de la Ciudad de México`,
+  description = `${site.nombre} ofrece apoyo a mujeres en riesgo, asesoría migratoria y consultas médicas gratuitas en el sur de la Ciudad de México. Conoce cómo ayudamos.`,
+  ogImage = '/images/og.jpg',
+  canonicalUrl = Astro.url.href,
+} = Astro.props;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": site.nombre,
+  "url": site.url,
+  "logo": `${site.url}/images/logo.png`,
+  "description": site.descripcion,
+  "sameAs": [
+    site.redes.facebook,
+    site.redes.instagram,
+  ].filter(r => !r.startsWith('[')),
+  // Dirección de oficina administrativa (NUNCA Casa Morada — esa es confidencial)
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Sanahcat 65A",
+    "addressLocality": "Héroes de Padierna, Tlalpan",
+    "addressRegion": "Ciudad de México",
+    "postalCode": "14200",
+    "addressCountry": "MX",
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": site.contactoGeneral.telefono,
+    "contactType": "customer service",
+    "availableLanguage": "Spanish",
+    "areaServed": "MX",
+  },
+};
+---
+
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Privacidad: no filtrar al sitio de destino como referente -->
+  <meta name="referrer" content="no-referrer" />
+
+  <!-- Fuentes: preconnect antes de cualquier hoja de estilos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+  />
+
+  <!-- Identidad -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <!-- iOS / Android home screen: usa el logo PNG completo (se escala automáticamente) -->
+  <link rel="apple-touch-icon" href="/images/logo.png" />
+
+  <!-- hreflang: es-MX activo; preparado para lenguas indígenas futuras -->
+  <link rel="alternate" hreflang="es-MX" href={canonicalUrl} />
+  <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_MX" />
+  <meta property="og:site_name" content={site.nombre} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={`${site.url}${ogImage}`} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <!-- REEMPLAZAR: /public/images/og.jpg — 1200×630px, <150KB, imagen representativa de la organización -->
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${site.url}${ogImage}`} />
+
+  <!-- JSON-LD: Organization solo. NUNCA incluir datos de Casa Morada aquí. -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Sitemap -->
+  <link rel="sitemap" href="/sitemap-index.xml" />
+</head>
+
+<body>
+  <!-- Skip-link: primer elemento del body para usuarios de teclado y lectores de pantalla -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <slot />
+
+  <!-- Scroll-reveal: fade+slide-up para elementos con data-reveal.
+       Se activa solo si JS está disponible y prefers-reduced-motion está desactivado.
+       Sin JS o con reduced-motion: los elementos son siempre visibles. -->
+  <script>
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced) {
+      const elements = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      elements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(28px)';
+        el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+        const delay = el.dataset.revealDelay;
+        if (delay) el.style.transitionDelay = `${delay}ms`;
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+
+      elements.forEach(el => observer.observe(el));
+    }
+  </script>
+</body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 9999;
+    background: var(--color-primary);
+    color: var(--color-surface);
+    padding: 0.75rem 1.5rem;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 0 0 0.25rem 0.25rem;
+  }
+  .skip-link:focus {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    width: auto;
+    height: auto;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+</style>

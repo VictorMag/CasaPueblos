@@ -1,0 +1,222 @@
+---
+// Sección Apoyo Migrante — layout 2 columnas: contenido + card de cita
+---
+
+<section
+  id="migrantes"
+  aria-labelledby="migrantes-heading"
+  style="
+    background-color: var(--color-bg);
+    padding-block: var(--section-pad-y);
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px;
+  "
+>
+  <div class="container">
+    <div class="migrantes-grid">
+
+      <!-- Columna izquierda: contenido principal -->
+      <div data-reveal style="display: flex; flex-direction: column; gap: 1.75rem;">
+
+        <!-- Eyebrow con subrayado -->
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <span
+            style="
+              font-size: var(--fs-small);
+              font-weight: 600;
+              color: var(--color-primary);
+              text-transform: uppercase;
+              letter-spacing: 0.14em;
+            "
+          >
+            Acompañamiento integral
+          </span>
+          <span
+            aria-hidden="true"
+            style="
+              width: 2.5rem;
+              height: 2px;
+              background-color: var(--color-primary);
+            "
+          ></span>
+        </div>
+
+        <h2 id="migrantes-heading">Apoyo Migrante</h2>
+
+        <p style="color: var(--color-text-muted); line-height: 1.75;">
+          Acompañamiento integral a personas migrantes que buscan regularizar su
+          situación en México. Cada paso, juntos.
+        </p>
+
+        <!-- Grid de 2 tarjetas con borde lateral -->
+        <div class="migrantes-cards-grid">
+
+          <!-- Tarjeta 1: Defensa Migratoria -->
+          <article
+            class="card"
+            data-reveal
+            data-reveal-delay="80"
+            aria-label="Servicio de defensa migratoria"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--color-primary)"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+              <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+              <path d="M7 21h10"/>
+              <path d="M12 3v18"/>
+              <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
+            </svg>
+            <h3>Defensa Migratoria</h3>
+            <p style="color: var(--color-text-muted); line-height: 1.65; font-size: var(--fs-small);">
+              Asesoría legal para regularizar la estancia en México. Conoce y ejerce
+              tus derechos.
+            </p>
+          </article>
+
+          <!-- Tarjeta 2: Capacitación Laboral -->
+          <article
+            class="card"
+            data-reveal
+            data-reveal-delay="160"
+            aria-label="Servicio de capacitación laboral"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--color-primary)"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              <rect width="20" height="14" x="2" y="6" rx="2"/>
+            </svg>
+            <h3>Capacitación Laboral</h3>
+            <p style="color: var(--color-text-muted); line-height: 1.65; font-size: var(--fs-small);">
+              Talleres y formación para integrarte al mercado de trabajo con dignidad
+              y autonomía.
+            </p>
+          </article>
+        </div>
+
+        <a
+          href={`mailto:[CORREO_GENERAL]`}
+          class="btn btn-primary"
+          style="align-self: flex-start; margin-top: 0.5rem;"
+          aria-label="Solicitar información sobre apoyo migrante"
+        >
+          Solicitar información
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Columna derecha: card de cita -->
+      <aside
+        data-reveal
+        data-reveal-delay="200"
+        class="migrantes-quote"
+        aria-label="Cita inspiradora sobre migración"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="var(--color-primary)"
+          stroke-width="1.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          opacity="0.55"
+          aria-hidden="true"
+        >
+          <path d="M18 21a8 8 0 0 0-16 0"/>
+          <circle cx="10" cy="8" r="5"/>
+          <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/>
+        </svg>
+
+        <p
+          style="
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--color-primary);
+            line-height: 1.5;
+            max-width: none;
+          "
+        >
+          “Cada persona que migra lleva un mundo consigo.”
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Grid principal: 1 columna en mobile, 2 columnas (contenido | cita) en desktop */
+  .migrantes-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 5vw, 3rem);
+    align-items: start;
+  }
+
+  .migrantes-grid > * {
+    min-width: 0;
+    width: 100%;
+  }
+
+  @media (min-width: 900px) {
+    .migrantes-grid {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    }
+  }
+
+  /* Grid interno de las dos tarjetas de servicio */
+  .migrantes-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 560px) {
+    .migrantes-cards-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Card de cita — compacta, se ajusta al contenido */
+  .migrantes-quote {
+    background-color: var(--color-surface-alt);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    max-width: 22rem;
+  }
+
+  @media (min-width: 900px) {
+    /* En desktop la card se centra verticalmente en su celda del grid */
+    .migrantes-quote {
+      align-self: center;
+      justify-self: end;
+    }
+  }
+</style>
