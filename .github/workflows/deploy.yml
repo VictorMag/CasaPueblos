@@ -58,7 +58,8 @@ jobs:
           protocol:   ftps          # FTPS (FTP sobre TLS) — Hostinger lo soporta
           port:       21
           local-dir:  ./dist/
-          server-dir: ${{ github.ref_name == 'main' && '/public_html/' || '/public_html/preview/' }}
+          # Hostinger aterriza el FTP ya dentro de public_html — no hay que repetirlo
+          server-dir: ${{ github.ref_name == 'main' && '/' || '/preview/' }}
           # Borra archivos en el servidor que ya no existen en dist/
           # Evita acumulación de assets viejos entre deploys
           dangerous-clean-slate: false
