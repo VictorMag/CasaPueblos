@@ -1,5 +1,6 @@
 ---
 // Hero — fondo: mural comunitario + overlays morados para legibilidad del texto
+import { url } from '../utils/url';
 ---
 
 <section
@@ -13,11 +14,11 @@
     Dimensiones: 1672×941 (suficiente para hero de pantalla completa hasta ~1920px).
   -->
   <picture class="hero-bg-picture">
-    <source srcset="/images/hero-mural.avif" type="image/avif" />
-    <source srcset="/images/hero-mural.webp" type="image/webp" />
+    <source srcset={url('/images/hero-mural.avif')} type="image/avif" />
+    <source srcset={url('/images/hero-mural.webp')} type="image/webp" />
     <img
       class="hero-bg-img"
-      src="/images/hero-mural.png"
+      src={url('/images/hero-mural.png')}
       alt=""
       width="1672"
       height="941"

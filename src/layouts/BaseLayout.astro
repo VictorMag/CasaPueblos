@@ -1,5 +1,6 @@
 ---
 import { site } from '../config/site';
+import { url } from '../utils/url';
 import '../styles/tokens.css';
 
 interface Props {
@@ -79,12 +80,12 @@ const jsonLd = {
     />
   </noscript>
 
-  <!-- Preload del hero AVIF — es el LCP de la página principal. Solo afecta a "/" -->
-  {Astro.url.pathname === '/' && (
+  <!-- Preload del hero AVIF — es el LCP de la página principal. Solo en la home. -->
+  {Astro.url.pathname === import.meta.env.BASE_URL && (
     <link
       rel="preload"
       as="image"
-      href="/images/hero-mural.avif"
+      href={url('/images/hero-mural.avif')}
       type="image/avif"
       fetchpriority="high"
     />
@@ -94,10 +95,10 @@ const jsonLd = {
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalUrl} />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+  <link rel="icon" type="image/x-icon" href={url('/favicon.ico')} />
   <!-- iOS / Android home screen: usa el logo PNG completo (se escala automáticamente) -->
-  <link rel="apple-touch-icon" href="/images/logo.png" />
+  <link rel="apple-touch-icon" href={url('/images/logo.png')} />
 
   <!-- hreflang: es-MX activo; preparado para lenguas indígenas futuras -->
   <link rel="alternate" hreflang="es-MX" href={canonicalUrl} />
@@ -125,7 +126,7 @@ const jsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <!-- Sitemap -->
-  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="sitemap" href={url('/sitemap-index.xml')} />
 </head>
 
 <body>

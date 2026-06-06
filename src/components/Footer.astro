@@ -1,5 +1,6 @@
 ---
 import { site } from '../config/site';
+import { url } from '../utils/url';
 ---
 
 <footer
@@ -152,11 +153,11 @@ import { site } from '../config/site';
         </p>
         <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
           {[
-            { href: '/#la-casa-morada', label: 'La Casa Morada' },
-            { href: '/#migrantes',      label: 'Apoyo Migrante' },
-            { href: '/#musica',         label: 'Escuela de Música' },
-            { href: '/#salud',          label: 'Clínica Comunitaria' },
-            { href: '/quienes-somos',   label: 'Quiénes somos' },
+            { href: url('/#la-casa-morada'), label: 'La Casa Morada' },
+            { href: url('/#migrantes'),      label: 'Apoyo Migrante' },
+            { href: url('/#musica'),         label: 'Escuela de Música' },
+            { href: url('/#salud'),          label: 'Clínica Comunitaria' },
+            { href: url('/quienes-somos'),   label: 'Quiénes somos' },
           ].map(link => (
             <li>
               <a
@@ -237,7 +238,7 @@ import { site } from '../config/site';
         © {new Date().getFullYear()} {site.nombre}. Todos los derechos reservados.
       </p>
       <a
-        href="/aviso-de-privacidad"
+        href={url('/aviso-de-privacidad')}
         style="font-size: var(--fs-small); color: oklch(72% 0.05 305); text-decoration: none;"
       >
         Aviso de privacidad

@@ -8,6 +8,8 @@
 //   - Hamburguesa en <1024px, menú móvil animado con grid-template-rows
 //   - Esc cierra el menú, body scroll-lock cuando está abierto
 
+import { url } from '../utils/url';
+
 interface Props {
   telefonoEmergencia: string;
 }
@@ -15,12 +17,12 @@ interface Props {
 const { telefonoEmergencia } = Astro.props;
 
 const navLinks = [
-  { href: '/',                 label: 'Inicio' },
-  { href: '/quienes-somos',    label: 'Quiénes somos' },
-  { href: '/#la-casa-morada',  label: 'La Casa Morada' },
-  { href: '/#migrantes',       label: 'Migrantes' },
-  { href: '/#musica',          label: 'Música' },
-  { href: '/#salud',           label: 'Salud' },
+  { href: url('/'),                label: 'Inicio' },
+  { href: url('/quienes-somos'),   label: 'Quiénes somos' },
+  { href: url('/#la-casa-morada'), label: 'La Casa Morada' },
+  { href: url('/#migrantes'),      label: 'Migrantes' },
+  { href: url('/#musica'),         label: 'Música' },
+  { href: url('/#salud'),          label: 'Salud' },
 ];
 
 // Pathname actual para marcar nav-link--active. En SSG, Astro.url está disponible
@@ -35,9 +37,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   <div class="header-inner">
 
     <!-- Logo — siempre visible -->
-    <a href="/" class="header-logo" aria-label="Casa de los Pueblos del Sur — Inicio">
+    <a href={url('/')} class="header-logo" aria-label="Casa de los Pueblos del Sur — Inicio">
       <img
-        src="/images/logo.png"
+        src={url('/images/logo.png')}
         alt="Casa de los Pueblos del Sur"
         class="header-logo-img"
         width="200"
@@ -75,7 +77,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
         </svg>
         <span>{telefonoEmergencia}</span>
       </a>
-      <a href="/#la-casa-morada" class="btn btn-primary btn-sm">
+      <a href={url('/#la-casa-morada')} class="btn btn-primary btn-sm">
         Necesito ayuda
       </a>
     </div>
@@ -138,7 +140,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
             <span>Línea de emergencia: {telefonoEmergencia}</span>
           </a>
           <a
-            href="/#la-casa-morada"
+            href={url('/#la-casa-morada')}
             class="btn btn-primary"
             style="justify-content: center;"
             tabindex="-1"

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../utils/url';
 ---
 
 <BaseLayout title="Página no encontrada — Casa de los Pueblos del Sur">
@@ -26,8 +27,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         La página que buscas no se encontró. Si necesitas ayuda urgente, llama directamente a nuestra línea de emergencia.
       </p>
       <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 0.5rem;">
-        <a href="/" class="btn btn-primary">Ir al inicio</a>
-        <a href="/#la-casa-morada" class="btn btn-emergency">Necesito ayuda ahora</a>
+        <a href={url('/')} class="btn btn-primary">Ir al inicio</a>
+        <a href={url('/#la-casa-morada')} class="btn btn-emergency">Necesito ayuda ahora</a>
       </div>
     </div>
   </main>
