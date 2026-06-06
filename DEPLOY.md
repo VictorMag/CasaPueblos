@@ -28,10 +28,29 @@
 - ✅ Sin `console.log`/TODO/FIXME en `src/`
 - ✅ Todos los `<img>` tienen `alt`
 
-**Nice-to-have (no bloqueantes):**
-- `dist/index.html` = 56KB (target 50KB) — optimizable inlining menos estilos
-- `hero-mural.png` → WebP/AVIF (ahorro ~70% peso, mejora LCP)
-- 159KB de JS por las 2 islas React (Header + ExitButton) — migrar a Astro vanilla bajaría a ~10KB
+**Optimizaciones realizadas en esta auditoría:**
+- ✅ `hero-mural.png` 2.6MB → AVIF 276KB (-89%); `<picture>` con cascada AVIF/WebP/PNG
+- ✅ Header + ExitButton migrados de React (.tsx) a Astro vanilla (.astro); **0 KB de JS de runtime**
+- ✅ React, lucide-react, @astrojs/react removidos de `package.json`
+- ✅ Google Fonts cargado no-bloqueante (preload + media swap trick)
+- ✅ Preload del hero AVIF en `/`
+- ✅ Color del footer ajustado (oklch 60% → 72%) para pasar contraste WCAG AA
+
+**Métricas Lighthouse (preview local, desktop):**
+| Categoría | Antes | Después |
+|---|---|---|
+| Performance | — | **81** |
+| Accessibility | — | **100** |
+| Best Practices | — | **100** |
+| SEO | — | **100** |
+| LCP | — | 3.3 s |
+| FCP | — | 0.9 s |
+| CLS | — | 0 |
+| Render blocking | 814 ms | 123 ms |
+
+**Pendiente futuro (no bloqueante):**
+- LCP 3.3s mejorable inlinear CSS crítico, evitar layout shift del headline animado
+- `favicon.ico` reemplazar el default de Astro (SVG ya hecho)
 
 ---
 

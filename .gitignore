@@ -92,3 +92,12 @@ documentos-cliente/
 *.zip
 *.tar.gz
 deploy/
+
+# ─── Auditorías / reportes ──────────────────────────────────────────────
+lighthouse-report.*
+*.report.json
+*.report.html
+
+# ─── Backups de assets antes de optimizar ───────────────────────────────
+*.bak
+*.original.*
