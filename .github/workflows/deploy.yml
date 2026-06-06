@@ -62,7 +62,9 @@ jobs:
           # main    → public_html/ (raíz del sitio)
           # preview → public_html/preview/ (staging)
           server-dir: ${{ github.ref_name == 'main' && 'public_html/' || 'public_html/preview/' }}
-          dangerous-clean-slate: false
+          # TEMPORAL: true ignora el .ftp-deploy-sync-state.json huérfano y resube
+          # TODO desde cero. Volver a false después del primer deploy exitoso.
+          dangerous-clean-slate: true
           exclude: |
             **/.git*
             **/.git*/**
