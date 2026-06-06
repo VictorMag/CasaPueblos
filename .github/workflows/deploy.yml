@@ -57,6 +57,7 @@ jobs:
           password:   ${{ secrets.FTP_PASSWORD }}
           protocol:   ftps
           port:       21
+          security:   loose   # desactiva validación estricta de cert TLS (necesario en hosting compartido)
           local-dir:  ./dist/
           # FTP root = /home/u638854670/ — public_html está dentro del home
           # main    → public_html/ (raíz del sitio)
