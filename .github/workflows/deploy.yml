@@ -58,8 +58,8 @@ jobs:
           protocol:   ftp
           port:       21
           local-dir:  ./dist/
-          # Ruta relativa al home del usuario FTP en Hostinger (sin / al inicio)
-          server-dir: ${{ github.ref_name == 'main' && 'public_html/' || 'public_html/preview/' }}
+          # Ruta relativa al home del usuario FTP en Hostinger (/home/u638854670/)
+          server-dir: ${{ github.ref_name == 'main' && 'domains/casadelospueblosdelsur.org/public_html/' || 'domains/casadelospueblosdelsur.org/public_html/preview/' }}
           dangerous-clean-slate: false
           exclude: |
             **/.git*
