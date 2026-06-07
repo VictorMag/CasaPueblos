@@ -3,246 +3,388 @@ import { site } from '../config/site';
 import { url } from '../utils/url';
 ---
 
-<footer
-  aria-label="Pie de página"
-  style="background-color: var(--color-primary-deep); color: var(--color-surface);"
->
-  <!-- Nota sobre el botón de salida rápida -->
-  <div
-    style="background-color: color-mix(in oklch, var(--color-primary-deep) 70%, black); padding: 0.875rem 0; border-bottom: 1px solid oklch(45% 0.08 305);"
-  >
+<footer class="site-footer" aria-label="Pie de página">
+
+  <!-- Banda de seguridad — aviso del botón de salida -->
+  <div class="footer-safety-band">
     <div class="container">
-      <p
-        style="
-          font-size: var(--fs-small);
-          color: oklch(80% 0.04 305);
-          max-width: none;
-          text-align: center;
-          line-height: 1.5;
-        "
-      >
+      <p class="footer-safety-text">
         El botón "Salir del sitio" no borra tu historial de navegación. Si tu dispositivo puede
-        ser vigilado, considera usar el modo incógnito de tu navegador o un dispositivo seguro
-        (biblioteca, casa de un familiar de confianza).
+        ser vigilado, considera usar el modo incógnito o un dispositivo seguro (biblioteca, casa de confianza).
       </p>
     </div>
   </div>
 
-  <!-- Cuerpo del footer -->
-  <div class="container" style="padding-block: clamp(3rem, 6vw, 5rem);">
-    <div
-      style="
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: clamp(2rem, 5vw, 3.5rem);
-        align-items: start;
-      "
-    >
-      <!-- Columna 1: logotipo y misión -->
-      <div>
-        <p
-          style="
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: clamp(0.9rem, 1.3vw, 1.05rem);
-            font-weight: 500;
-            margin-bottom: 0.75rem;
-            max-width: none;
-            white-space: nowrap;
-          "
-        >
-          {site.nombre}
-        </p>
-        <p style="font-size: var(--fs-small); color: oklch(80% 0.04 305); line-height: 1.6;">
-          Apoyo integral a mujeres en situación de riesgo, personas migrantes y familias
-          que necesitan atención médica y educación en el sur de la Ciudad de México.
-        </p>
+  <!-- Cuerpo principal -->
+  <div class="footer-body">
+    <div class="container">
 
-        <!-- Redes sociales -->
-        <div style="display: flex; gap: 0.75rem; margin-top: 1.25rem;">
-          {site.redes.facebook && !site.redes.facebook.startsWith('[') && (
-            <a
-              href={site.redes.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook de Casa de los Pueblos del Sur"
-              style="
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 40px;
-                height: 40px;
-                border-radius: 0.25rem;
-                border: 1px solid oklch(45% 0.08 305);
-                color: oklch(80% 0.04 305);
-                transition: border-color 0.15s;
-              "
-            >
-              <!-- Ícono Facebook SVG inline -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-              </svg>
-            </a>
-          )}
-          {site.redes.instagram && !site.redes.instagram.startsWith('[') && (
-            <a
-              href={site.redes.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram de Casa de los Pueblos del Sur"
-              style="
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 40px;
-                height: 40px;
-                border-radius: 0.25rem;
-                border: 1px solid oklch(45% 0.08 305);
-                color: oklch(80% 0.04 305);
-                transition: border-color 0.15s;
-              "
-            >
-              <!-- Ícono Instagram SVG inline -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-              </svg>
-            </a>
-          )}
-          {site.casaMorada.whatsapp && !site.casaMorada.whatsapp.startsWith('[') && (
-            <a
-              href={`https://wa.me/${site.casaMorada.whatsapp}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp de emergencia de Casa Morada"
-              style="
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 40px;
-                height: 40px;
-                border-radius: 0.25rem;
-                border: 1px solid oklch(45% 0.08 305);
-                color: oklch(80% 0.04 305);
-                transition: border-color 0.15s;
-              "
-            >
-              <!-- Ícono WhatsApp SVG inline -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-              </svg>
-            </a>
-          )}
-        </div>
+      <!-- Declaración editorial — ocupa todo el ancho antes de las columnas -->
+      <div class="footer-statement">
+        <p class="footer-claim">
+          <em>Unimos culturas.</em>
+          Fortalecemos alianzas.
+          Construimos futuro.
+        </p>
       </div>
 
-      <!-- Columna 2: navegación -->
-      <nav aria-label="Mapa del sitio">
-        <p
-          style="
-            font-size: var(--fs-small);
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: oklch(65% 0.06 305);
-            margin-bottom: 1rem;
-            max-width: none;
-          "
-        >
-          Servicios
-        </p>
-        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          {[
-            { href: url('/#la-casa-morada'), label: 'La Casa Morada' },
-            { href: url('/#migrantes'),      label: 'Apoyo Migrante' },
-            { href: url('/#musica'),         label: 'Escuela de Música' },
-            { href: url('/#salud'),          label: 'Clínica Comunitaria' },
-            { href: url('/quienes-somos'),   label: 'Quiénes somos' },
-          ].map(link => (
-            <li>
-              <a
-                href={link.href}
-                style="
-                  font-size: var(--fs-small);
-                  color: oklch(80% 0.04 305);
-                  text-decoration: none;
-                "
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <hr class="footer-divider" aria-hidden="true" />
 
-      <!-- Columna 3: contacto administrativo -->
-      <div>
-        <p
-          style="
-            font-size: var(--fs-small);
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: oklch(65% 0.06 305);
-            margin-bottom: 1rem;
-            max-width: none;
-          "
-        >
-          Contacto
-        </p>
-        <address style="font-style: normal; display: flex; flex-direction: column; gap: 0.625rem;">
-          <a
-            href={`mailto:${site.contactoGeneral.email}`}
-            style="font-size: var(--fs-small); color: oklch(80% 0.04 305); text-decoration: none; display: flex; align-items: center; gap: 0.5rem;"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; opacity: 0.7;">
-              <rect width="20" height="16" x="2" y="4" rx="2"/>
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-            </svg>
-            {site.contactoGeneral.email}
+      <!-- Columnas -->
+      <div class="footer-columns">
+
+        <!-- Col 1: Logo + descripción + redes -->
+        <div class="footer-col footer-col-brand">
+          <a href={url('/')} class="footer-logo-link" aria-label="Casa de los Pueblos del Sur — Inicio">
+            <img
+              src={url('/images/logo.png')}
+              alt="Casa de los Pueblos del Sur"
+              class="footer-logo"
+              width="120"
+              height="120"
+              loading="lazy"
+              decoding="async"
+            />
           </a>
-          <a
-            href={`tel:${site.contactoGeneral.telefono}`}
-            style="font-size: var(--fs-small); color: oklch(80% 0.04 305); text-decoration: none; display: flex; align-items: center; gap: 0.5rem;"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; opacity: 0.7;">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-            </svg>
-            {site.contactoGeneral.telefono}
-          </a>
-          <p style="font-size: var(--fs-small); color: oklch(80% 0.04 305); max-width: none; display: flex; align-items: flex-start; gap: 0.5rem;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; opacity: 0.7; margin-top: 0.15em;">
-              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-            {site.contactoGeneral.direccion}
+          <p class="footer-desc">
+            Apoyo a mujeres en situación de riesgo, personas migrantes y familias
+            en el sur de la Ciudad de México.
           </p>
-        </address>
-      </div>
-    </div>
 
-    <!-- Línea inferior -->
-    <div
-      style="
-        margin-top: clamp(2rem, 5vw, 3rem);
-        padding-top: 1.5rem;
-        border-top: 1px solid oklch(35% 0.08 305);
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.75rem;
-      "
-    >
-      <p style="font-size: var(--fs-small); color: oklch(72% 0.05 305); max-width: none;">
-        © {new Date().getFullYear()} {site.nombre}. Todos los derechos reservados.
-      </p>
-      <a
-        href={url('/aviso-de-privacidad')}
-        style="font-size: var(--fs-small); color: oklch(72% 0.05 305); text-decoration: none;"
-      >
-        Aviso de privacidad
-      </a>
+          <!-- Redes — solo si existen -->
+          {(site.redes.facebook && !site.redes.facebook.startsWith('[')) ||
+           (site.redes.instagram && !site.redes.instagram.startsWith('[')) ||
+           (site.casaMorada.whatsapp && !site.casaMorada.whatsapp.startsWith('[')) ? (
+            <div class="footer-social">
+              {site.redes.facebook && !site.redes.facebook.startsWith('[') && (
+                <a href={site.redes.facebook} target="_blank" rel="noopener noreferrer"
+                   aria-label="Facebook de Casa de los Pueblos del Sur" class="footer-social-link">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                  </svg>
+                </a>
+              )}
+              {site.redes.instagram && !site.redes.instagram.startsWith('[') && (
+                <a href={site.redes.instagram} target="_blank" rel="noopener noreferrer"
+                   aria-label="Instagram de Casa de los Pueblos del Sur" class="footer-social-link">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                  </svg>
+                </a>
+              )}
+              {site.casaMorada.whatsapp && !site.casaMorada.whatsapp.startsWith('[') && (
+                <a href={`https://wa.me/${site.casaMorada.whatsapp}`} target="_blank" rel="noopener noreferrer"
+                   aria-label="WhatsApp de emergencia de Casa Morada" class="footer-social-link">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+                  </svg>
+                </a>
+              )}
+            </div>
+          ) : null}
+        </div>
+
+        <!-- Col 2: Servicios -->
+        <nav class="footer-col" aria-label="Mapa del sitio">
+          <p class="footer-col-heading">Servicios</p>
+          <ul class="footer-nav-list">
+            {[
+              { href: url('/#la-casa-morada'), label: 'La Casa Morada' },
+              { href: url('/#migrantes'),      label: 'Apoyo Migrante' },
+              { href: url('/#musica'),         label: 'Escuela de Música' },
+              { href: url('/#salud'),          label: 'Clínica Comunitaria' },
+              { href: url('/quienes-somos'),   label: 'Quiénes somos' },
+            ].map(link => (
+              <li>
+                <a href={link.href} class="footer-nav-link">{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <!-- Col 3: Contacto -->
+        <div class="footer-col">
+          <p class="footer-col-heading">Contacto</p>
+          <address class="footer-address">
+            {site.contactoGeneral.email && !site.contactoGeneral.email.startsWith('[') && (
+              <a href={`mailto:${site.contactoGeneral.email}`} class="footer-contact-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect width="20" height="16" x="2" y="4" rx="2"/>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+                {site.contactoGeneral.email}
+              </a>
+            )}
+            <a href={`tel:${site.contactoGeneral.telefono}`} class="footer-contact-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              {site.contactoGeneral.telefono}
+            </a>
+            <p class="footer-address-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>{site.contactoGeneral.direccion}</span>
+            </p>
+          </address>
+        </div>
+
+      </div>
+
+      <!-- Línea inferior -->
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          &copy; {new Date().getFullYear()} {site.nombre}. Todos los derechos reservados.
+        </p>
+        <a href={url('/aviso-de-privacidad')} class="footer-privacy-link">
+          Aviso de privacidad
+        </a>
+      </div>
+
     </div>
   </div>
 </footer>
+
+<style>
+  /* ── Footer base ── */
+  .site-footer {
+    background-color: var(--color-section-footer);
+    color: var(--color-surface);
+  }
+
+  /* ── Banda de seguridad ── */
+  .footer-safety-band {
+    background-color: oklch(18% 0.08 305);
+    padding-block: 0.875rem;
+    border-bottom: 1px solid oklch(35% 0.08 305);
+  }
+
+  .footer-safety-text {
+    font-size: var(--fs-small);
+    color: oklch(72% 0.04 305);
+    max-width: none;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ── Cuerpo ── */
+  .footer-body {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  /* ── Declaración editorial ── */
+  .footer-statement {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .footer-claim {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 400;
+    color: oklch(88% 0.04 305);
+    line-height: 1.4;
+    max-width: none;
+  }
+
+  .footer-claim em {
+    font-style: italic;
+    color: var(--color-surface);
+  }
+
+  /* ── Divisor ── */
+  .footer-divider {
+    border: none;
+    border-top: 1px solid oklch(35% 0.08 305);
+    margin: 0 0 clamp(2rem, 4vw, 3rem);
+  }
+
+  /* ── Columnas ── */
+  .footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  /* ── Col brand ── */
+  .footer-col-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .footer-logo-link {
+    display: inline-block;
+    line-height: 0;
+  }
+
+  .footer-logo {
+    height: 80px;
+    width: auto;
+    /* El logo tiene colores propios — se ve bien sobre morado oscuro */
+  }
+
+  .footer-desc {
+    font-size: var(--fs-small);
+    color: oklch(80% 0.04 305);
+    line-height: 1.6;
+    max-width: 30ch;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 0.625rem;
+    margin-top: 0.25rem;
+  }
+
+  .footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 0.25rem;
+    border: 1px solid oklch(40% 0.08 305);
+    color: oklch(80% 0.04 305);
+    text-decoration: none;
+    transition: border-color 150ms ease, color 150ms ease;
+  }
+
+  .footer-social-link:hover {
+    border-color: oklch(65% 0.06 305);
+    color: var(--color-surface);
+  }
+
+  .footer-social-link:focus-visible {
+    outline: 2px solid var(--color-surface);
+    outline-offset: 2px;
+  }
+
+  /* ── Col heading ── */
+  .footer-col-heading {
+    font-size: var(--fs-small);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: oklch(58% 0.07 305);
+    margin-bottom: 1rem;
+    max-width: none;
+  }
+
+  /* ── Navegación ── */
+  .footer-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-nav-link {
+    font-size: var(--fs-small);
+    color: oklch(80% 0.04 305);
+    text-decoration: none;
+    transition: color 150ms ease;
+    display: inline-block;
+    padding-block: 0.15rem;
+  }
+
+  .footer-nav-link:hover {
+    color: var(--color-surface);
+  }
+
+  .footer-nav-link:focus-visible {
+    outline: 2px solid var(--color-surface);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* ── Contacto ── */
+  .footer-address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .footer-contact-link {
+    font-size: var(--fs-small);
+    color: oklch(80% 0.04 305);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 150ms ease;
+  }
+
+  .footer-contact-link:hover {
+    color: var(--color-surface);
+  }
+
+  .footer-contact-link:focus-visible {
+    outline: 2px solid var(--color-surface);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .footer-contact-link svg {
+    flex-shrink: 0;
+    opacity: 0.65;
+  }
+
+  .footer-address-text {
+    font-size: var(--fs-small);
+    color: oklch(80% 0.04 305);
+    max-width: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .footer-address-text svg {
+    flex-shrink: 0;
+    opacity: 0.65;
+    margin-top: 0.15em;
+  }
+
+  /* ── Bottom bar ── */
+  .footer-bottom {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid oklch(32% 0.08 305);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .footer-copy {
+    font-size: var(--fs-small);
+    color: oklch(58% 0.05 305);
+    max-width: none;
+  }
+
+  .footer-privacy-link {
+    font-size: var(--fs-small);
+    color: oklch(58% 0.05 305);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .footer-privacy-link:hover {
+    color: oklch(80% 0.04 305);
+  }
+
+  .footer-privacy-link:focus-visible {
+    outline: 2px solid var(--color-surface);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+</style>
