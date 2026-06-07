@@ -1,250 +1,399 @@
 ---
+// Sección Clínica Comunitaria — layout split: encabezado izq, especialidades der
+// Sin tarjetas idénticas: specialists como filas horizontales con jerarquía clara
 import { site } from '../config/site';
+import { url } from '../utils/url';
 ---
 
 <section
   id="salud"
   aria-labelledby="salud-heading"
-  style="
-    background-color: var(--color-bg);
-    padding-block: var(--section-pad-y);
-    content-visibility: auto;
-    contain-intrinsic-size: 0 700px;
-  "
+  class="salud-section"
 >
   <div class="container">
-    <div style="display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 3.5rem);">
+    <div class="salud-grid">
 
-      <!-- Encabezado -->
-      <div data-reveal style="display: flex; flex-direction: column; gap: 0.875rem; max-width: var(--prose-width);">
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-          <span
-            style="
-              font-size: var(--fs-small);
-              font-weight: 600;
-              color: var(--color-primary);
-              text-transform: uppercase;
-              letter-spacing: 0.14em;
-            "
-          >
-            Salud comunitaria
-          </span>
-          <span
-            aria-hidden="true"
-            style="
-              width: 2.5rem;
-              height: 2px;
-              background-color: var(--color-primary);
-            "
-          ></span>
+      <!-- Columna izquierda: encabezado sticky -->
+      <header class="salud-header" data-reveal>
+        <div class="salud-eyebrow-group">
+          <span class="salud-eyebrow">Salud comunitaria</span>
+          <span class="salud-eyebrow-line" aria-hidden="true"></span>
         </div>
 
-        <h2 id="salud-heading">Clínica Comunitaria</h2>
-        <p style="font-style: italic; font-family: 'Playfair Display', Georgia, serif; font-size: var(--fs-h3); font-weight: 400; color: var(--color-text-muted); max-width: none;">
-          Consultas médicas gratuitas para tu familia
-        </p>
-      </div>
+        <h2 id="salud-heading" class="salud-titulo">Clínica Comunitaria</h2>
 
-      <!-- Tres tarjetas de especialidad -->
-      <div
-        style="
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 1.5rem;
-        "
-      >
+        <p class="salud-subtitulo">
+          Consultas médicas gratuitas para tu familia, sin importar tu situación migratoria o económica.
+        </p>
+
+        <!-- Nota de gratuidad integrada al header -->
+        <div class="salud-gratuito" role="note">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span>Todos los servicios son completamente gratuitos</span>
+        </div>
+      </header>
+
+      <!-- Columna derecha: lista de especialidades -->
+      <div class="salud-especialidades" role="list" aria-label="Especialidades médicas disponibles">
 
         <!-- Pediatría -->
         <article
-          class="card"
+          class="salud-especialidad"
           data-reveal
-          data-reveal-delay="0"
-          style="display: flex; flex-direction: column; gap: 1rem;"
-          aria-label="Especialidad de pediatría"
+          data-reveal-delay="80"
+          role="listitem"
         >
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div
-              style="
-                width: 48px;
-                height: 48px;
-                flex-shrink: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: var(--color-primary-soft);
-                border-radius: 0.5rem;
-              "
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 12h.01"/>
-                <path d="M15 12h.01"/>
-                <path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/>
-                <path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/>
-              </svg>
-            </div>
-            <h3>Pediatría</h3>
+          <div class="salud-esp-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12h.01"/>
+              <path d="M15 12h.01"/>
+              <path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/>
+              <path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/>
+            </svg>
           </div>
-          <dl style="display: flex; flex-direction: column; gap: 0.5rem; font-size: var(--fs-small); flex: 1;">
-            <div>
-              <dt style="color: var(--color-text-muted); font-weight: 500;">Médico</dt>
-              <dd style="color: var(--color-text); margin: 0.125rem 0 0;">{site.salud.pediatria.doctor}</dd>
-            </div>
-            <div>
-              <dt style="color: var(--color-text-muted); font-weight: 500;">Horario</dt>
-              <dd style="color: var(--color-text); margin: 0.125rem 0 0;">{site.salud.pediatria.horario}</dd>
-            </div>
-            <div>
-              <dt style="color: var(--color-text-muted); font-weight: 500;">Citas</dt>
-              <dd style="margin: 0.125rem 0 0;">
-                <a
-                  href={`tel:${site.salud.pediatria.telefono}`}
-                  style="color: var(--color-primary); font-weight: 500; text-decoration: none;"
-                  aria-label={`Llamar para cita de pediatría: ${site.salud.pediatria.telefono}`}
-                >
-                  {site.salud.pediatria.telefono}
-                </a>
-              </dd>
-            </div>
-          </dl>
+
+          <div class="salud-esp-body">
+            <h3 class="salud-esp-nombre">Pediatría</h3>
+            <dl class="salud-esp-datos">
+              <div class="salud-dato">
+                <dt>Médico</dt>
+                <dd>{site.salud.pediatria.doctor}</dd>
+              </div>
+              <div class="salud-dato">
+                <dt>Horario</dt>
+                <dd>{site.salud.pediatria.horario}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <a
+            href={`tel:${site.salud.pediatria.telefono}`}
+            class="salud-cita-btn"
+            aria-label={`Llamar para cita de pediatría: ${site.salud.pediatria.telefono}`}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span class="salud-cita-label">Agendar cita</span>
+          </a>
         </article>
 
         <!-- Neurología -->
         <article
-          class="card"
+          class="salud-especialidad"
           data-reveal
-          data-reveal-delay="120"
-          style="display: flex; flex-direction: column; gap: 1rem;"
-          aria-label="Especialidad de neurología"
+          data-reveal-delay="160"
+          role="listitem"
         >
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div
-              style="
-                width: 48px;
-                height: 48px;
-                flex-shrink: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: var(--color-primary-soft);
-                border-radius: 0.5rem;
-              "
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
-                <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
-                <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>
-                <path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/>
-                <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/>
-                <path d="M3.477 10.896a4 4 0 0 1 .585-.396"/>
-                <path d="M19.938 10.5a4 4 0 0 1 .585.396"/>
-                <path d="M6 18a4 4 0 0 1-1.967-.516"/>
-                <path d="M19.967 17.484A4 4 0 0 1 18 18"/>
-              </svg>
-            </div>
-            <h3>Neurología</h3>
+          <div class="salud-esp-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
+              <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
+              <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>
+            </svg>
           </div>
-          <dl style="display: flex; flex-direction: column; gap: 0.5rem; font-size: var(--fs-small); flex: 1;">
-            <div>
-              <dt style="color: var(--color-text-muted); font-weight: 500;">Médico</dt>
-              <dd style="color: var(--color-text); margin: 0.125rem 0 0;">{site.salud.neurologia.doctor}</dd>
-            </div>
-            <div>
-              <dt style="color: var(--color-text-muted); font-weight: 500;">Horario</dt>
-              <dd style="color: var(--color-text); margin: 0.125rem 0 0;">{site.salud.neurologia.horario}</dd>
-            </div>
-            <div>
-              <dt style="color: var(--color-text-muted); font-weight: 500;">Citas</dt>
-              <dd style="margin: 0.125rem 0 0;">
-                <a
-                  href={`tel:${site.salud.neurologia.telefono}`}
-                  style="color: var(--color-primary); font-weight: 500; text-decoration: none;"
-                  aria-label={`Llamar para cita de neurología: ${site.salud.neurologia.telefono}`}
-                >
-                  {site.salud.neurologia.telefono}
-                </a>
-              </dd>
-            </div>
-          </dl>
+
+          <div class="salud-esp-body">
+            <h3 class="salud-esp-nombre">Neurología</h3>
+            <dl class="salud-esp-datos">
+              <div class="salud-dato">
+                <dt>Médico</dt>
+                <dd>{site.salud.neurologia.doctor}</dd>
+              </div>
+              <div class="salud-dato">
+                <dt>Horario</dt>
+                <dd>{site.salud.neurologia.horario}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <a
+            href={`tel:${site.salud.neurologia.telefono}`}
+            class="salud-cita-btn"
+            aria-label={`Llamar para cita de neurología: ${site.salud.neurologia.telefono}`}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span class="salud-cita-label">Agendar cita</span>
+          </a>
         </article>
 
-        <!-- Prevención del Alzheimer -->
+        <!-- Prevención Alzheimer -->
         <article
-          class="card"
+          class="salud-especialidad"
           data-reveal
           data-reveal-delay="240"
-          style="display: flex; flex-direction: column; gap: 1rem;"
-          aria-label="Especialidad de prevención del Alzheimer"
+          role="listitem"
         >
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div
-              style="
-                width: 48px;
-                height: 48px;
-                flex-shrink: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: var(--color-primary-soft);
-                border-radius: 0.5rem;
-              "
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-                <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/>
-              </svg>
-            </div>
-            <h3>Prevención del Alzheimer</h3>
+          <div class="salud-esp-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+              <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/>
+            </svg>
           </div>
-          <dl style="display: flex; flex-direction: column; gap: 0.5rem; font-size: var(--fs-small); flex: 1;">
-            <div>
-              <dt style="color: var(--color-text-muted); font-weight: 500;">Médico</dt>
-              <dd style="color: var(--color-text); margin: 0.125rem 0 0;">{site.salud.alzheimer.doctor}</dd>
-            </div>
-            <div>
-              <dt style="color: var(--color-text-muted); font-weight: 500;">Horario</dt>
-              <dd style="color: var(--color-text); margin: 0.125rem 0 0;">{site.salud.alzheimer.horario}</dd>
-            </div>
-            <div>
-              <dt style="color: var(--color-text-muted); font-weight: 500;">Citas</dt>
-              <dd style="margin: 0.125rem 0 0;">
-                <a
-                  href={`tel:${site.salud.alzheimer.telefono}`}
-                  style="color: var(--color-primary); font-weight: 500; text-decoration: none;"
-                  aria-label={`Llamar para cita de Alzheimer: ${site.salud.alzheimer.telefono}`}
-                >
-                  {site.salud.alzheimer.telefono}
-                </a>
-              </dd>
-            </div>
-          </dl>
+
+          <div class="salud-esp-body">
+            <h3 class="salud-esp-nombre">Prevención del Alzheimer</h3>
+            <dl class="salud-esp-datos">
+              <div class="salud-dato">
+                <dt>Médico</dt>
+                <dd>{site.salud.alzheimer.doctor}</dd>
+              </div>
+              <div class="salud-dato">
+                <dt>Horario</dt>
+                <dd>{site.salud.alzheimer.horario}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <a
+            href={`tel:${site.salud.alzheimer.telefono}`}
+            class="salud-cita-btn"
+            aria-label={`Llamar para cita de Alzheimer: ${site.salud.alzheimer.telefono}`}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span class="salud-cita-label">Agendar cita</span>
+          </a>
         </article>
 
       </div>
-
-      <!-- Banda de gratuidad -->
-      <div
-        style="
-          background-color: var(--color-primary-soft);
-          border-radius: 0.5rem;
-          padding: 1.25rem 1.75rem;
-          text-align: center;
-        "
-        role="note"
-        aria-label="Nota sobre gratuidad del servicio"
-      >
-        <p
-          style="
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: var(--fs-h3);
-            font-weight: 500;
-            color: var(--color-primary);
-            max-width: none;
-          "
-        >
-          Todos los servicios de salud son completamente gratuitos.
-        </p>
-      </div>
-
     </div>
   </div>
 </section>
+
+<style>
+  /* ── Sección ── */
+  .salud-section {
+    background-color: var(--color-bg);
+    padding-block: var(--section-pad-y);
+    content-visibility: auto;
+    contain-intrinsic-size: 0 700px;
+  }
+
+  /* ── Grid principal split ── */
+  .salud-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(3rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .salud-grid {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    }
+  }
+
+  /* ── Header izquierdo ── */
+  .salud-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 900px) {
+    .salud-header {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
+  .salud-eyebrow-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .salud-eyebrow {
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .salud-eyebrow-line {
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    background-color: var(--color-primary);
+  }
+
+  .salud-titulo {
+    font-size: var(--fs-h2);
+    color: var(--color-text);
+  }
+
+  .salud-subtitulo {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    max-width: 38ch;
+  }
+
+  /* Nota de gratuidad integrada al header */
+  .salud-gratuito {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    background-color: var(--color-primary-soft);
+    padding: 0.875rem 1rem;
+    border-radius: 0.5rem;
+    color: var(--color-primary);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .salud-gratuito svg {
+    flex-shrink: 0;
+    margin-top: 0.1em;
+  }
+
+  /* ── Lista de especialidades ── */
+  .salud-especialidades {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Fila horizontal: icon | nombre+datos | cta */
+  .salud-especialidad {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 1.25rem;
+    align-items: center;
+    padding-block: clamp(1.5rem, 3vw, 2rem);
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color 200ms ease;
+    border-radius: 8px;
+  }
+
+  .salud-especialidad:first-child {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .salud-especialidad:hover {
+    background-color: var(--color-primary-soft);
+    padding-inline: 0.75rem;
+    margin-inline: -0.75rem;
+  }
+
+  /* Ícono centrado en su celda */
+  .salud-esp-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary-soft);
+    border-radius: 0.5rem;
+    color: var(--color-primary);
+    flex-shrink: 0;
+    transition: background-color 200ms ease;
+  }
+
+  .salud-especialidad:hover .salud-esp-icon {
+    background-color: color-mix(in oklch, var(--color-primary) 15%, transparent);
+  }
+
+  /* Cuerpo: nombre + datos */
+  .salud-esp-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .salud-esp-nombre {
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .salud-esp-datos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+  }
+
+  .salud-dato {
+    display: flex;
+    gap: 0.5rem;
+    font-size: var(--fs-small);
+    flex-wrap: wrap;
+  }
+
+  .salud-dato dt {
+    color: var(--color-text-muted);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .salud-dato dd {
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  /* Botón de cita — lado derecho */
+  .salud-cita-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.875rem;
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary);
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+    flex-shrink: 0;
+  }
+
+  .salud-cita-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+  }
+
+  .salud-cita-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* En mobile: colapsa en columna */
+  @media (max-width: 600px) {
+    .salud-especialidad {
+      grid-template-columns: 40px 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .salud-cita-btn {
+      grid-column: 2;
+      align-self: start;
+      justify-self: start;
+    }
+
+    .salud-cita-label {
+      display: none;
+    }
+  }
+</style>
