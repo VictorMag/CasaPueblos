@@ -1,206 +1,309 @@
 ---
-// Sección Escuela de Música — fondo crema, acento dorado, tres tarjetas autorizadas
+// Sección Escuela de Música — layout editorial asimétrico, acento dorado
+// Sin tarjetas idénticas, sin border-top decorativo
+import { url } from '../utils/url';
 ---
 
 <section
   id="musica"
   aria-labelledby="musica-heading"
-  style="
-    background-color: var(--color-surface-alt);
-    padding-block: var(--section-pad-y);
-    content-visibility: auto;
-    contain-intrinsic-size: 0 700px;
-  "
+  class="musica-section"
 >
   <div class="container">
 
-    <div style="display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 3.5rem);">
-
-      <!-- Encabezado -->
-      <div data-reveal style="display: flex; flex-direction: column; gap: 1rem; max-width: var(--prose-width);">
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-          <span
-            style="
-              font-size: var(--fs-small);
-              font-weight: 600;
-              color: var(--color-accent);
-              text-transform: uppercase;
-              letter-spacing: 0.14em;
-            "
-          >
-            Educación artística gratuita
-          </span>
-          <span
-            aria-hidden="true"
-            style="
-              width: 2.5rem;
-              height: 2px;
-              background-color: var(--color-accent);
-            "
-          ></span>
-        </div>
-
-        <h2
-          id="musica-heading"
-          style="color: var(--color-accent);"
-        >
-          Escuela de Música
-        </h2>
-        <!--<p style="font-family: 'Playfair Display', Georgia, serif; font-size: var(&#45;&#45;fs-h3); font-weight: 400; color: var(&#45;&#45;color-text); max-width: none;">-->
-        <!--  La música como lenguaje de comunidad y encuentro-->
-        <!--</p>-->
-        <p style="color: var(--color-text-muted); line-height: 1.75;">
-          Ofrecemos clases de música gratuitas para niños, jóvenes y adultos de la comunidad.
-          Creemos que el acceso a la educación artística no es un lujo: es parte de una vida digna
-          y un puente para sanar, expresarse y crecer junto a otros.
-        </p>
+    <!-- Encabezado editorial: eyebrow + título + frase -->
+    <header class="musica-header" data-reveal>
+      <div class="musica-eyebrow-group">
+        <span class="musica-eyebrow">Educación artística gratuita</span>
+        <span class="musica-eyebrow-line" aria-hidden="true"></span>
       </div>
+      <h2 id="musica-heading" class="musica-titulo">Escuela de Música</h2>
+      <p class="musica-subtitulo">
+        La música como lenguaje de comunidad y encuentro.
+        Clases gratuitas para niños, jóvenes y adultos.
+      </p>
+    </header>
 
-      <!-- Tres tarjetas de instrumento -->
-      <div
-        style="
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-          gap: 1.5rem;
-        "
-      >
+    <!-- Instrumentos: lista editorial numerada, no grid de tarjetas -->
+    <ol class="musica-lista" aria-label="Instrumentos disponibles">
 
-        <!-- Guitarra -->
-        <article
-          class="card musica-card"
-          data-reveal
-          data-reveal-delay="0"
-          style="display: flex; flex-direction: column; gap: 1rem;"
-          aria-label="Clases de guitarra"
-        >
-          <div
-            style="
-              width: 48px;
-              height: 48px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              background-color: color-mix(in oklch, var(--color-accent) 15%, var(--color-surface));
-              border-radius: 0.5rem;
-            "
-          >
-            <!-- Music2 icon (lucide) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="8" cy="18" r="4"/>
-              <path d="M12 18V2l7 4"/>
-            </svg>
-          </div>
-          <h3>Guitarra</h3>
-          <p style="color: var(--color-text-muted); line-height: 1.7; font-size: var(--fs-body); flex: 1;">
-            Aprende desde los acordes básicos hasta interpretación de melodías,
+      <li class="musica-item" data-reveal data-reveal-delay="80">
+        <span class="musica-numero" aria-hidden="true">01</span>
+        <div class="musica-item-content">
+          <h3 class="musica-item-titulo">Guitarra</h3>
+          <p class="musica-item-desc">
+            Desde acordes básicos hasta interpretación de melodías,
             en grupos pequeños con atención personalizada.
           </p>
-        </article>
-
-        <!-- Piano -->
-        <article
-          class="card musica-card"
-          data-reveal
-          data-reveal-delay="120"
-          style="display: flex; flex-direction: column; gap: 1rem;"
-          aria-label="Clases de piano"
+        </div>
+        <svg
+          class="musica-item-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
         >
-          <div
-            style="
-              width: 48px;
-              height: 48px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              background-color: color-mix(in oklch, var(--color-accent) 15%, var(--color-surface));
-              border-radius: 0.5rem;
-            "
-          >
-            <!-- Piano icon (lucide) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18.5 8c-1.4 0-2.6-.8-3.2-2A6.87 6.87 0 0 0 2 9v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-8.5C22 9.6 20.4 8 18.5 8"/>
-              <path d="M2 17h2M6 17h2M10 17h2M14 17h2M18 17h2M2 13h2M6 13h2M10 13h2M14 13h2M18 13h2"/>
-            </svg>
-          </div>
-          <h3>Piano</h3>
-          <p style="color: var(--color-text-muted); line-height: 1.7; font-size: var(--fs-body); flex: 1;">
-            Iniciación al piano para todas las edades, con énfasis en la lectura
-            musical y el desarrollo del oído.
-          </p>
-        </article>
+          <circle cx="8" cy="18" r="4"/>
+          <path d="M12 18V2l7 4"/>
+        </svg>
+      </li>
 
-        <!-- Voz -->
-        <article
-          class="card musica-card"
-          data-reveal
-          data-reveal-delay="240"
-          style="display: flex; flex-direction: column; gap: 1rem;"
-          aria-label="Clases de canto y voz"
+      <li class="musica-item" data-reveal data-reveal-delay="160">
+        <span class="musica-numero" aria-hidden="true">02</span>
+        <div class="musica-item-content">
+          <h3 class="musica-item-titulo">Piano</h3>
+          <p class="musica-item-desc">
+            Iniciación para todas las edades, con énfasis en lectura
+            musical y desarrollo del oído.
+          </p>
+        </div>
+        <svg
+          class="musica-item-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
         >
-          <div
-            style="
-              width: 48px;
-              height: 48px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              background-color: color-mix(in oklch, var(--color-accent) 15%, var(--color-surface));
-              border-radius: 0.5rem;
-            "
-          >
-            <!-- Mic2 icon (lucide) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m12 8-9.04 9.06a2.82 2.82 0 1 0 3.98 3.98L16 12"/>
-              <circle cx="17" cy="7" r="5"/>
-            </svg>
-          </div>
-          <h3>Voz</h3>
-          <p style="color: var(--color-text-muted); line-height: 1.7; font-size: var(--fs-body); flex: 1;">
-            Técnica vocal, afinación y expresión. Un espacio para descubrir y
-            fortalecer tu propia voz.
+          <path d="M18.5 8c-1.4 0-2.6-.8-3.2-2A6.87 6.87 0 0 0 2 9v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-8.5C22 9.6 20.4 8 18.5 8"/>
+          <path d="M2 17h2M6 17h2M10 17h2M14 17h2M18 17h2"/>
+        </svg>
+      </li>
+
+      <li class="musica-item" data-reveal data-reveal-delay="240">
+        <span class="musica-numero" aria-hidden="true">03</span>
+        <div class="musica-item-content">
+          <h3 class="musica-item-titulo">Voz</h3>
+          <p class="musica-item-desc">
+            Técnica vocal, afinación y expresión. Un espacio para descubrir
+            y fortalecer tu propia voz.
           </p>
-        </article>
+        </div>
+        <svg
+          class="musica-item-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m12 8-9.04 9.06a2.82 2.82 0 1 0 3.98 3.98L16 12"/>
+          <circle cx="17" cy="7" r="5"/>
+        </svg>
+      </li>
+    </ol>
 
-      </div>
-
-      <!-- CTA y cupo -->
-      <div
-        style="
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1.25rem;
-          padding-top: 0.5rem;
-        "
+    <!-- CTA -->
+    <footer class="musica-footer" data-reveal data-reveal-delay="320">
+      <p class="musica-cupo">
+        Cupo limitado — inscríbete hoy
+      </p>
+      <a
+        href={`mailto:[CORREO_GENERAL]`}
+        class="btn musica-cta"
+        aria-label="Solicitar más información sobre la escuela de música"
       >
-        <p
-          style="
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: var(--fs-h3);
-            font-weight: 400;
-            color: var(--color-text-muted);
-            font-style: italic;
-            max-width: none;
-          "
-        >
-          Cupo limitado — inscríbete hoy
-        </p>
-        <a
-          href={`mailto:[CORREO_GENERAL]`}
-          class="btn btn-primary"
-          aria-label="Solicitar más información sobre la escuela de música"
-        >
-          Más información
-        </a>
-      </div>
+        Más información
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </a>
+    </footer>
 
-    </div>
   </div>
 </section>
 
 <style>
-  .musica-card {
-    border-top: 3px solid var(--color-accent);
+  /* ── Variables locales de color — solo para esta sección ── */
+  .musica-section {
+    --mu-bg:         oklch(15% 0.04 240);
+    --mu-accent:     oklch(70% 0.12 240);
+    --mu-accent-dim: oklch(66% 0.08 240 / 0.55);
+    --mu-text-muted: oklch(100% 0 0 / 0.55);
+    --mu-border:     oklch(100% 0 0 / 0.07);
+
+    background-color: var(--mu-bg);
+    padding-block: var(--section-pad-y);
+    content-visibility: auto;
+    contain-intrinsic-size: 0 700px;
+  }
+
+  /* ── Header ── */
+  .musica-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: var(--prose-width);
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .musica-eyebrow-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .musica-eyebrow {
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--mu-accent-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .musica-eyebrow-line {
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    background-color: var(--mu-accent-dim);
+  }
+
+  .musica-titulo {
+    color: var(--mu-accent);
+    font-size: var(--fs-h2);
+  }
+
+  .musica-subtitulo {
+    color: var(--mu-text-muted);
+    line-height: 1.75;
+    max-width: 52ch;
+  }
+
+  /* ── Lista editorial ── */
+  .musica-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .musica-item {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding-block: clamp(1.5rem, 3vw, 2.25rem);
+    border-bottom: 1px solid var(--mu-border);
+    transition: background-color 200ms ease;
+    border-radius: 4px;
+  }
+
+  .musica-item:first-child {
+    border-top: 1px solid var(--mu-border);
+  }
+
+  .musica-item:hover {
+    background-color: oklch(100% 0 0 / 0.04);
+    padding-inline: 0.75rem;
+    margin-inline: -0.75rem;
+  }
+
+  .musica-numero {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 500;
+    color: var(--mu-accent);
+    opacity: 0.5;
+    line-height: 1;
+    align-self: start;
+    padding-top: 0.15em;
+  }
+
+  .musica-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .musica-item-titulo {
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    color: var(--color-surface);
+    line-height: 1.2;
+  }
+
+  .musica-item-desc {
+    color: var(--mu-text-muted);
+    font-size: var(--fs-body);
+    line-height: 1.65;
+    max-width: 52ch;
+  }
+
+  .musica-item-icon {
+    color: var(--mu-accent);
+    opacity: 0.45;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  @media (max-width: 600px) {
+    .musica-item {
+      grid-template-columns: 2.5rem 1fr;
+    }
+    .musica-item-icon {
+      display: none;
+    }
+  }
+
+  /* ── Footer / CTA ── */
+  .musica-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .musica-cupo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: var(--fs-h3);
+    font-weight: 400;
+    color: var(--mu-text-muted);
+    font-style: italic;
+    max-width: none;
+  }
+
+  .musica-cta {
+    background-color: var(--mu-accent);
+    color: var(--mu-bg);
+    border: 2px solid var(--mu-accent);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.25rem;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: var(--fs-body);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: filter 150ms ease;
+    white-space: nowrap;
+  }
+
+  .musica-cta:hover {
+    filter: brightness(0.9);
+  }
+
+  .musica-cta:focus-visible {
+    outline: 2px solid var(--mu-accent);
+    outline-offset: 2px;
   }
 </style>
