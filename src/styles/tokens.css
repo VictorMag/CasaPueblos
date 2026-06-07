@@ -26,6 +26,14 @@
   /* ── Bordes ────────────────────────────────────────────────────────── */
   --color-border:       oklch(88% 0.01 75);
 
+  /* ── Secciones de color fuerte ─────────────────────────────────────── */
+  --color-section-morada:  oklch(18% 0.09 305);
+  --color-section-footer:  oklch(12% 0.06 305);
+
+  /* ── Sombras de tarjeta ────────────────────────────────────────────── */
+  --shadow-card:           0 2px 12px oklch(35% 0.13 305 / 0.09), 0 1px 3px oklch(0% 0 0 / 0.04);
+  --shadow-card-emergency: 0 8px 40px oklch(0% 0 0 / 0.28);
+
   /* ── Escala tipográfica fluida ──────────────────────────────────────── */
   --fs-display:  clamp(2.5rem,  5vw + 1rem,   4.5rem);
   --fs-h2:       clamp(1.75rem, 2.5vw + 1rem, 2.75rem);
@@ -189,9 +197,7 @@ img, picture, video, canvas, svg {
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   padding: clamp(1.5rem, 3vw, 2rem);
-  box-shadow:
-    0 1px 2px oklch(0% 0 0 / 0.04),
-    0 2px 6px oklch(0% 0 0 / 0.04);
+  box-shadow: var(--shadow-card);
   will-change: transform;
 }
 
