@@ -43,8 +43,12 @@ jobs:
         run: cp src/config/site.preview.ts src/config/site.ts
 
       # 5. Build de producción
+      #    preview usa PUBLIC_BASE=/preview/ para que Astro prefije correctamente
+      #    todos los assets (CSS, JS, imágenes) con el subdirectorio de staging.
       - name: Build
         run: npm run build
+        env:
+          PUBLIC_BASE: ${{ github.ref_name == 'preview' && '/preview/' || '/' }}
 
       # 5. Deploy — la carpeta destino cambia según la rama
       #    main    → public_html/         (raíz del dominio)
