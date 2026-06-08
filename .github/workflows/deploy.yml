@@ -73,9 +73,9 @@ jobs:
 
           # Determinar carpeta destino según la rama
           if [ "${{ github.ref_name }}" = "main" ]; then
-            SERVER_DIR="public_html/"
+            SERVER_DIR="domains/casadelospueblosdelsur.org/public_html/"
           else
-            SERVER_DIR="public_html/preview/"
+            SERVER_DIR="domains/casadelospueblosdelsur.org/public_html/preview/"
           fi
 
           # Subir dist/ al servidor (--delete elimina archivos que ya no existen)
