@@ -56,31 +56,28 @@ jobs:
         if: github.ref_name == 'preview'
         run: cp public/.htaccess.preview dist/.htaccess
 
-      # 6. Deploy vía rsync sobre SSH
-      #    main    → public_html/         (raíz del dominio)
-      #    preview → public_html/preview/ (staging para el cliente)
+      # 6. Configurar SSH agent con la clave privada
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # 7. Agregar Hostinger a known_hosts
+      - name: Add Hostinger to known_hosts
+        run: ssh-keyscan -p 65002 -H 195.35.39.122 >> ~/.ssh/known_hosts
+
+      # 8. Deploy vía rsync sobre SSH
+      #    main    → domains/.../public_html/
+      #    preview → domains/.../public_html/preview/
       - name: Deploy to Hostinger via SSH/rsync
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          # Configurar clave SSH
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-
-          # Agregar host a known_hosts para evitar prompt interactivo
-          ssh-keyscan -p 65002 -H 195.35.39.122 >> ~/.ssh/known_hosts
-
-          # Determinar carpeta destino según la rama
           if [ "${{ github.ref_name }}" = "main" ]; then
             SERVER_DIR="domains/casadelospueblosdelsur.org/public_html/"
           else
             SERVER_DIR="domains/casadelospueblosdelsur.org/public_html/preview/"
           fi
 
-          # Subir dist/ al servidor (--delete elimina archivos que ya no existen)
-          # El .htaccess de preview ya fue reemplazado por el de staging (sin caché)
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key -p 65002 -o StrictHostKeyChecking=no" \
+            -e "ssh -p 65002 -o StrictHostKeyChecking=no" \
             ./dist/ \
             u638854670@195.35.39.122:$SERVER_DIR
