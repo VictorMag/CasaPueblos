@@ -50,26 +50,32 @@ jobs:
         env:
           PUBLIC_BASE: ${{ github.ref_name == 'preview' && '/preview/' || '/' }}
 
-      # 5. Deploy — la carpeta destino cambia según la rama
+      # 6. Deploy vía rsync sobre SSH
       #    main    → public_html/         (raíz del dominio)
       #    preview → public_html/preview/ (staging para el cliente)
-      - name: Deploy to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server:     ${{ secrets.FTP_HOST }}
-          username:   ${{ secrets.FTP_USERNAME }}
-          password:   ${{ secrets.FTP_PASSWORD }}
-          protocol:   ftps
-          port:       21
-          security:   loose   # desactiva validación estricta de cert TLS (necesario en hosting compartido)
-          local-dir:  ./dist/
-          # FTP root = /home/u638854670/ — public_html está dentro del home
-          # main    → public_html/ (raíz del sitio)
-          # preview → public_html/preview/ (staging)
-          server-dir: ${{ github.ref_name == 'main' && 'public_html/' || 'public_html/preview/' }}
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            ${{ github.ref_name == 'preview' && '.htaccess' || '' }}
+      - name: Deploy to Hostinger via SSH/rsync
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          # Configurar clave SSH
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # Agregar host a known_hosts para evitar prompt interactivo
+          ssh-keyscan -p 65002 -H 195.35.39.122 >> ~/.ssh/known_hosts
+
+          # Determinar carpeta destino según la rama
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            SERVER_DIR="public_html/"
+          else
+            SERVER_DIR="public_html/preview/"
+          fi
+
+          # Subir dist/ al servidor (--delete elimina archivos que ya no existen)
+          # Se excluye .htaccess en preview para no sobreescribir reglas del servidor
+          rsync -avz --delete \
+            ${{ github.ref_name == 'preview' && '--exclude=.htaccess' || '' }} \
+            -e "ssh -i ~/.ssh/deploy_key -p 65002 -o StrictHostKeyChecking=no" \
+            ./dist/ \
+            u638854670@195.35.39.122:$SERVER_DIR
