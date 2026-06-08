@@ -50,6 +50,12 @@ jobs:
         env:
           PUBLIC_BASE: ${{ github.ref_name == 'preview' && '/preview/' || '/' }}
 
+      # 5b. En preview: reemplaza el .htaccess con la versión de staging
+      #     (sin caché de LiteSpeed ni browser, para que los cambios sean visibles)
+      - name: Use preview .htaccess (branch preview only)
+        if: github.ref_name == 'preview'
+        run: cp public/.htaccess.preview dist/.htaccess
+
       # 6. Deploy vía rsync sobre SSH
       #    main    → public_html/         (raíz del dominio)
       #    preview → public_html/preview/ (staging para el cliente)
@@ -73,9 +79,8 @@ jobs:
           fi
 
           # Subir dist/ al servidor (--delete elimina archivos que ya no existen)
-          # Se excluye .htaccess en preview para no sobreescribir reglas del servidor
+          # El .htaccess de preview ya fue reemplazado por el de staging (sin caché)
           rsync -avz --delete \
-            ${{ github.ref_name == 'preview' && '--exclude=.htaccess' || '' }} \
             -e "ssh -i ~/.ssh/deploy_key -p 65002 -o StrictHostKeyChecking=no" \
             ./dist/ \
             u638854670@195.35.39.122:$SERVER_DIR
